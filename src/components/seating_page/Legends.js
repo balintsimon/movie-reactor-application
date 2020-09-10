@@ -29,7 +29,6 @@ export default Legends;
 const takenSeatStyle = {
     position: "absolute",
     bottom: "3%",
-    // left: "40%",
     left: "30%",
     transform: "translate(-50%, -50%) scale(3)",
     zIndex: "1",
@@ -39,7 +38,6 @@ const takenSeatStyle = {
 const freeSeatStyle = {
     position: "absolute",
     bottom: "3%",
-    // left: "49.5%",
     left: "39.5%",
     transform: "translate(-50%, -50%) scale(3)",
     zIndex: "1",
@@ -49,7 +47,6 @@ const freeSeatStyle = {
 const reserveSeatStyle = {
     position: "absolute",
     bottom: "3%",
-    // left: "60.5%",
     left: "50.5%",
     transform: "translate(-50%, -50%) scale(3)",
     zIndex: "1",

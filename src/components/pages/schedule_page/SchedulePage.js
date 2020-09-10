@@ -28,22 +28,24 @@ const SchedulePage = () => {
 
       useEffect(() => {
         window.scrollTo(0, 0);
-        axios
-            .get(API_SCHEDULE_URL)
+
+        axios.get(API_SCHEDULE_URL)
             .then((res) => {
-              setMovieIds([...new Set(res.data.map(item => item["movie"]["movieDbId"]))]);
-              res.data.map(show => (
+              setMovieIds([...new Set(res.data.shows.map(item => item["movieDbId"]))]); // rewrite to get movieDb Id from other service
+              //
+                res.data.shows.map(show => (
                   setShows(prevState => [...prevState,
                     {
                       showId: show["id"],
                       startingDate: show["startingDate"],
                       startingTime: show["startingTime"],
-                      movie: show["movie"]
+                      movieDbId: show["movieDbId"],
+                      movieId: show["movieId"]
                     }])
               ));
-              setStartingDates([...new Set(res.data.map(item => item["startingDate"]))]);
-              setStartingTimes([...new Set(res.data.map(item => item["startingTime"]))]);
-            })
+              setStartingDates([...new Set(res.data.shows.map(item => item["startingDate"]))]);
+              setStartingTimes([...new Set(res.data.shows.map(item => item["startingTime"]))]);
+            });
       }, []);
 
       useEffect(() => {
@@ -56,7 +58,7 @@ const SchedulePage = () => {
                 .catch(error => console.log('There was a problem!', error))
         ))
             .then(data => {
-              setPlayedMovies(data.map((movie) => movie));
+              setPlayedMovies(data.map((movieDbId) => movieDbId));
             })
       }, [movieIds]);
 
@@ -77,7 +79,7 @@ const SchedulePage = () => {
 
       const findShows = (shows, movieId, startingDate) => {
         const foundedShows = shows.find(show => {
-          return show["movie"]["movieDbId"] === movieId && show["startingDate"] === startingDate;
+          return show["movieDbId"] === movieId && show["startingDate"] === startingDate; // rewrite to get movieDb Id from other service
         })
         // If there is one movie on the same day in two different time - Here we can process it! Map through them instead of display one item.
         if (foundedShows) {

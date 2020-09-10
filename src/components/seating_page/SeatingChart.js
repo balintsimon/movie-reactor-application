@@ -1,72 +1,64 @@
-import React, {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import {API_URL_MOVIE, API_URL_PICTURE, API_KEY, IMAGE_SIZES} from "../../Constants";
-import {getIdFromUrl} from "../../Utils";
-import SeatingPicture from "../seating_page/SeatingPicture";
-import FirstRow from "../pages/movie_detail_page/FirstRow";
+import React, {useEffect} from "react";
 import TheaterSeat from "./TheaterSeat";
-
+import {FREE_SEAT_CLASS, OCCUPIED_SEAT_CLASS, REACTOR_YELLOW} from "../../Constants";
 const SeatingChart = (props) => {
-
-    let freeSeatClass = "fa-square-o";
-    let occupiedSeatClass = "fa-square";
-    let ownReserveSeatClass = "fa-plus-square";
-
-    let reactorYellow = "#e6b31e";
-
     let occupiedSeats = props.reservedSeats;
     let room = props.room;
     let seats = room.seats;
-    let columns = [[]];
+    let seatingArray = [[]];
 
-    function fillSeatsTable() {
-        // create 2D array for seats
-        for (let actualRowNumber = 0; actualRowNumber < room.numberOfRows - 1; actualRowNumber++) {
-            let row = []
-            for (let actualSeatNumber = 0; actualSeatNumber < room.numberOfSeatsPerRow; actualSeatNumber++) {
-                row.push(<div>Seat here</div>)
-            }
-            columns.push(row);
-        }
-
-        // place seats in the array
-        let previousSeat = null;
-        for (let seat of seats) {
-            let currentRowNumber = parseInt(seat.rowNumber);
-            let currentSeatNumber = parseInt(seat.seatNumber);
-            columns[currentRowNumber - 1][currentSeatNumber - 1] = (
-                <TheaterSeat key={`row-${currentRowNumber}-seat-${currentSeatNumber}`}
-                             row={currentRowNumber}
-                             column={currentSeatNumber}
-                             id={seat.id}
-                />);
-            if (previousSeat != null) {
-                if (parseInt(previousSeat.rowNumber) < currentRowNumber + 1) {
-
-                    columns[currentRowNumber - 1][currentSeatNumber] =
-                        <p key={`element-${currentRowNumber}`} className="row no-gutters"/>;
-                }
-            }
-            previousSeat = seat;
-        }
-    }
-
-    function occupySeats() {
+    function getOccupiedSeatIds() {
         let occupiedSeatIds = [];
         for (let occupiedSeat of occupiedSeats) {
             occupiedSeatIds.push(parseInt(occupiedSeat.seat.id));
         }
+        return occupiedSeatIds;
+    }
 
-        let allSeats = document.getElementsByClassName("theater-seat");
-
-        for (let seat of allSeats) {
-            if (occupiedSeatIds.includes(parseInt(seat.dataset.id)) && seat.classList.contains(freeSeatClass)) {
-                seat.classList.add(occupiedSeatClass);
-                seat.classList.remove(freeSeatClass);
-                seat.style.color = reactorYellow;
-                seat.style.opacity = "0.5";
+    function createEmpty2DContainer(numberOfRows, numberOfColumns) {
+        let table = [[]];
+        for (let actualRowNumber = 0; actualRowNumber < numberOfRows - 1; actualRowNumber++) {
+            let row = []
+            for (let actualSeatNumber = 0; actualSeatNumber < numberOfColumns; actualSeatNumber++) {
+                row.push(<div>Seat loading</div>)
             }
+            table.push(row);
         }
+        return table;
+    }
+
+    function generateSeats(occupiedSeatIds, seatsHolder) {
+        let previousSeat = null;
+        for (let seat of seats) {
+            let isSeatOccupied = occupiedSeatIds.includes(parseInt(seat.id));
+            let seatStyleClass = isSeatOccupied ? OCCUPIED_SEAT_CLASS : FREE_SEAT_CLASS;
+            let seatColor = isSeatOccupied ? REACTOR_YELLOW : "white";
+            let seatOpacity = isSeatOccupied ? "0.5" : "1";
+            let currentRowNumber = parseInt(seat.rowNumber);
+            let currentSeatNumber = parseInt(seat.seatNumber);
+
+            seatsHolder[currentRowNumber - 1][currentSeatNumber - 1] = (
+                <TheaterSeat key={`row-${currentRowNumber}-seat-${currentSeatNumber}`}
+                             row={currentRowNumber}
+                             column={currentSeatNumber}
+                             id={seat.id}
+                             seatOccupiedClass={seatStyleClass}
+                             seatColor={seatColor}
+                             seatOpacity={seatOpacity}
+                />);
+            if (previousSeat != null && parseInt(previousSeat.rowNumber) < currentRowNumber + 1) {
+                seatsHolder[currentRowNumber - 1][currentSeatNumber] =
+                    <p key={`element-${currentRowNumber}`} className="row no-gutters"/>;
+            }
+            previousSeat = seat;
+        }
+        return seatsHolder;
+    }
+
+    function fillSeatsTable() {
+        let occupiedSeatIds = getOccupiedSeatIds();
+        seatingArray = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
+        seatingArray = generateSeats(occupiedSeatIds, seatingArray);
     }
 
     useEffect(() => {
@@ -74,13 +66,12 @@ const SeatingChart = (props) => {
     }, [])
 
     fillSeatsTable();
-    occupySeats();
 
     return (
         <div style={mainCardStyle}
              key="seating-chart"
              className="card-deck m-auto">
-            {columns}
+            {seatingArray}
         </div>
     )
 }

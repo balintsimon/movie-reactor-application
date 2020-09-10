@@ -98,9 +98,9 @@ const MovieDetailPage = () => {
                 }
             });
         axios
-            .get(API_SCHEDULED_MOVIES_URL)
+            .get(API_SCHEDULED_MOVIES_URL) // TODO: check endpoint
             .then(res => {
-                setIsScheduledMovie(res.data.map(movie => movie["movieDbId"]).includes(parseInt(movieId)));
+                setIsScheduledMovie(res.data.movies.map(movie => movie["movieDbId"]).includes(parseInt(movieId)));
             })
     }, [movieUrl, videoUrl, movieId, actorUrl]);
 
@@ -177,7 +177,6 @@ const mainColumnStyle = {
     display: "flex",
     flexFlow: "row wrap",
     height: "100%",
-    // height: "1500px",
     padding: "0"
 }
 
@@ -189,11 +188,9 @@ const actorsContainer = {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    // alignItems: "flex-start",
     padding: "15%",
     paddingTop: "5%",
     paddingBottom: "-7%",
-    // minHeight: "800px"
     height: "1300px"
 }
 

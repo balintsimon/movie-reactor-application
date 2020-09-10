@@ -58,7 +58,7 @@ const SelectionPage = (props) => {
                 data.results.map(movie => (
                     <div key={movie.id} className="card-deck ml-5 mr-3 mt-5">
                       <MovieCard
-                          movie={movie}
+                          movie={movie.id}
                       />
                     </div>
                 ))

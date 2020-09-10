@@ -128,7 +128,7 @@ const ActorDetailPage = () => {
         if (castIndex < casts.length) {
           let imageSource = casts[castIndex]["moviePoster"] === null ? "/images/no_poster.png" : `${API_URL_PICTURE}${IMAGE_SIZES["poster_sizes"][0]}${casts[castIndex]["moviePoster"]}`
           let movieTitleText = casts[castIndex]["movieTitle"].length > 70 ? `${casts[castIndex]["movieTitle"].substring(0, 70)}...` : casts[castIndex]["movieTitle"];
-          let characterNameText = casts[castIndex]["character"].length > 35 ? `${casts[castIndex]["character"].substring(0, 35)}...` : casts[castIndex]["character"];
+          let characterNameText = casts[castIndex]["character"] === undefined ? "N/A" : casts[castIndex]["character"].length > 35 ? `${casts[castIndex]["character"].substring(0, 35)}...` : casts[castIndex]["character"];
           let releaseYear = casts[castIndex]["releaseYear"] === undefined ? "" : getYearFromDate(casts[castIndex]["releaseYear"])
           oneRow.push(<Link key={uuid()} className="link-container-cast-item"
                             to={`/movie/${casts[castIndex]["movieDbId"]}`}>

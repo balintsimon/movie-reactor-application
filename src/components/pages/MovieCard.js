@@ -6,58 +6,86 @@ import {Link} from "react-router-dom";
 import {WatchlistContext} from "../context/WatchlistContext";
 
 import {limitString} from "../../Utils";
-import {API_URL_MOVIE, API_URL_PICTURE, API_KEY, IMAGE_SIZES} from "../../Constants";
+import {
+  API_URL_MOVIE,
+  API_URL_PICTURE,
+  API_KEY,
+  API_WATCHLIST,
+  IMAGE_SIZES, GET_CONFIG, POST_CONFIG,
+} from "../../Constants";
 
 export default function MovieCard(props) {
-
-  let movie = props.movie;
-  let movieId = movie.id;
+  let movieId = props.movie;
   let currentMovieURL = `${API_URL_MOVIE}${movieId}?api_key=${API_KEY}`;
 
-  const [isLoading, actualMovie] = Get(currentMovieURL, movie);
+  const [isLoading, actualMovie] = Get(currentMovieURL, movieId);
   const [isFlipped, setIsFlipped] = useState(false);
 
   const [backdrop, setBackdrop] = useState("");
   const [poster, setPoster] = useState("");
   const [watchlist, setWatchlist] = useContext(WatchlistContext);
 
+  const loginWarningMovieCard = (event) => {
+    let button = event.target;
+    button.style.color = "#e6b31e";
+    button.style.fontWeight = "bold";
+    button.innerHTML = `${"Please login".toUpperCase()}`;
+    setTimeout(() => {
+      button.style.color = "white";
+      button.innerHTML = `${"List".toUpperCase()}`;
+      button.style.fontWeight = "normal";
+    }, 3000);
+  };
+
   useEffect(() => {
-    axios
-        .get(currentMovieURL)
-        .then((res) => {
-          setBackdrop(res.data['backdrop_path']);
-          setPoster(res.data['poster_path']);
-        });
-  },[currentMovieURL]);
+    axios.get(currentMovieURL).then((res) => {
+      setBackdrop(res.data["backdrop_path"]);
+      setPoster(res.data["poster_path"]);
+    });
+  }, [currentMovieURL]);
 
   let setFlipCard = (e) => {
     e.preventDefault();
     isFlipped ? setIsFlipped(false) : setIsFlipped(true);
   };
 
-  let limitedOverview =
-      actualMovie
-          ? limitString(actualMovie.overview, actualMovie.title)
-          : "Loading / Not available";
+  let limitedOverview = actualMovie
+      ? limitString(actualMovie.overview, actualMovie.title)
+      : "Loading / Not available";
 
   let addToWatchlist = (e) => {
     e.preventDefault();
-    if (!isTheMovieAdded() && !watchlist.includes(movie)) {
-      setWatchlist([...watchlist, movie]);
+    if (localStorage.getItem("token") === null) {
+      loginWarningMovieCard(e);
+    } else if (!isTheMovieAdded() && !watchlist.includes(movieId)) {
+      axios
+          .post(`${API_WATCHLIST}/${movieId}`, "", { // TODO: check endpoint, get rid of config
+            headers: POST_CONFIG,
+          })
+          .then((response) =>
+              axios.get(API_WATCHLIST, GET_CONFIG).then((response) => { // TODO: check endpoint, get rid of config
+                setWatchlist(response.data.watchlist);
+              })
+          );
     }
   };
 
   let removeFromWatchlist = (e) => {
     e.preventDefault();
-    let filteredArray = watchlist.filter(
-        (selectedMovie) => selectedMovie.id !== movieId
-    );
-    setWatchlist(filteredArray);
+    axios
+        .delete(`${API_WATCHLIST}/${movieId}`, { // TODO: check endpoint, get rid of config
+          headers: POST_CONFIG,
+        })
+        .then((response) =>
+            axios.get(API_WATCHLIST, GET_CONFIG).then((response) => { // TODO: check endpoint, get rid of config
+              setWatchlist(response.data.watchlist);
+            })
+        );
   };
 
   let isTheMovieAdded = () => {
     for (let selectedMovie of watchlist) {
-      if (selectedMovie.id === movieId) {
+      if (selectedMovie === movieId) {
         return true;
       }
     }
@@ -77,7 +105,6 @@ export default function MovieCard(props) {
                   transitionTimingFunction: "ease",
                 }}
             >
-              {/*{"unWatchlist".toUpperCase()}*/}
               {"unlist".toUpperCase()}
             </button>
         ) : (
@@ -91,13 +118,15 @@ export default function MovieCard(props) {
                   transitionTimingFunction: "ease",
                 }}
             >
-              {/*{"Watchlist it!".toUpperCase()}*/}
               {"list".toUpperCase()}
             </button>
         )}
         <Link to={`/movie/${movieId}`} style={buttonStyle}>
-          <button type="button" className="btn btn-secondary"
-                  style={{...buttonStyle, borderRadius: "0px", width: "130px"}}>
+          <button
+              type="button"
+              className="btn btn-secondary"
+              style={{...buttonStyle, borderRadius: "0px", width: "130px"}}
+          >
             {"Details".toUpperCase()}
           </button>
         </Link>
@@ -107,7 +136,7 @@ export default function MovieCard(props) {
   let mainCard = (
       <>
         <div
-            id={`${movie.id}-front`}
+            id={`${movieId}-front`}
             className="card border-secondary mt-1 mb-3 clearfix overflow-hidden "
             style={cardStyle}
         >
@@ -134,7 +163,7 @@ export default function MovieCard(props) {
   );
 
   let ratedAdultLogo =
-      actualMovie && actualMovie['adult'] ? (
+      actualMovie && actualMovie["adult"] ? (
           <img
               style={ratedAdultStyle}
               src={"/images/adult.png"}
@@ -146,33 +175,35 @@ export default function MovieCard(props) {
           <React.Fragment/>
       );
 
-  let ratingBackgroundLogo = actualMovie && actualMovie['vote_average'] !== 0 ? (
-      <img
-          style={ratingBackgroundStyle}
-          src={"/images/star64.png"}
-          alt="Votes"
-          data-toggle="tooltip"
-      />
-  ) : (
-      <div/>
-  );
+  let ratingBackgroundLogo =
+      actualMovie && actualMovie["vote_average"] !== 0 ? (
+          <img
+              style={ratingBackgroundStyle}
+              src={"/images/star64.png"}
+              alt="Votes"
+              data-toggle="tooltip"
+          />
+      ) : (
+          <div/>
+      );
 
-  let ratingNumber = actualMovie && actualMovie['vote_average'] !== 0 ? (
-      <div
-          style={ratingStyle}
-          title={`User rating: ${actualMovie['vote_average']}, based on ${actualMovie['vote_count']} votes.`}
-      >
-        <b>{`${actualMovie['vote_average']}`}</b>
-      </div>
-  ) : (
-      <div/>
-  );
+  let ratingNumber =
+      actualMovie && actualMovie["vote_average"] !== 0 ? (
+          <div
+              style={ratingStyle}
+              title={`User rating: ${actualMovie["vote_average"]}, based on ${actualMovie["vote_count"]} votes.`}
+          >
+            <b>{`${actualMovie["vote_average"]}`}</b>
+          </div>
+      ) : (
+          <div/>
+      );
 
   let backCard =
       actualMovie != null ? (
           <>
             <div
-                id={`${movie.id}-back`}
+                id={`${movieId}-back`}
                 className="card border-secondary mt-1 mb-3 clearfix overflow-hidden"
                 style={cardStyle}
             >
@@ -187,17 +218,16 @@ export default function MovieCard(props) {
                     </div>
                     <div>
                       <h5 className="card-title" style={{textAlign: "center"}}>
-                        {`${actualMovie.title.toUpperCase()} (${actualMovie['release_date'].slice(
-                            0,
-                            4
-                        )})`}
+                        {`${actualMovie.title.toUpperCase()} (${actualMovie[
+                            "release_date"
+                            ].slice(0, 4)})`}
                       </h5>
                       <span className="card-text overflow-hidden">
-                        {ratingBackgroundLogo}
+                  {ratingBackgroundLogo}
                         {ratingNumber}
                         {ratedAdultLogo}
                         {limitedOverview}
-                      </span>
+                </span>
                     </div>
                   </div>
               ) : (
@@ -217,7 +247,6 @@ export default function MovieCard(props) {
       </ReactCardFlip>
   );
 }
-
 const centerImage = {
   display: "block",
   marginLeft: "auto",

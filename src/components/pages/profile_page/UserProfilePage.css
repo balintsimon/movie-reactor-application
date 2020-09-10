@@ -1,0 +1,203 @@
+.picture-name-container {
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.picture-container {
+
+    width: 40%;
+    background-color: #343434;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-picture {
+    height: 80%;
+    width: 40%;
+    margin: auto;
+    top: 50%;
+    background-color: #2e2e2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-picture-frame {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+    top: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.picture {
+    height: 100%;
+    width: 100%;
+}
+
+.details-container {
+    width: 60%;
+    background-color: #2e2e2e;
+    height: 300px;
+}
+
+.username-container {
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.username-container-div {
+    width: 100%;
+    height: 50%;
+    background-color: #343434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-name-title {
+    margin: 0;
+    color: white;
+}
+
+
+.user-details-container {
+    height: 30%;
+}
+
+.reservations-title-column {
+    text-align: center;
+    height: 100%;
+    background-color: #343434;
+}
+
+.reservations-title-container {
+    margin: auto;
+    height: 60px;
+    width: 80%;
+    background-color: #2e2e2e;
+    color: white;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.reservation-value {
+    margin: auto;
+}
+
+.reservations-container-column {
+    text-align: center;
+    height: 100%;
+    background-color: #343434;
+}
+
+.reservations-container {
+    margin: auto;
+    max-height: 800px;
+    width: 80%;
+    background-color: #2e2e2e;
+    overflow: scroll;
+}
+
+.reservations-rows-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reservation-item-container {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    height: 48px;
+    margin-top: 10px;
+    background-color: #343434;
+
+}
+
+.reservation-seat-picture-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #343434;
+    height: 100%;
+    width: 48px;
+}
+
+.reservation-seat-img {
+    width: 32px;
+    height: 32px;
+}
+
+.reservation-data {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-info {
+    color: #e6b31e;
+}
+
+.reservation-movie-title {
+    width: 400px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+}
+
+.movie-link {
+    color: white;
+}
+
+.movie-link:hover {
+    color: #e6b31e;
+}
+
+.reservation-delete-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+}
+
+.delete-button-img {
+    width: 32px;
+    height: 32px;
+}
+
+.delete-button-img:hover {
+    cursor: pointer;
+    height: 38px;
+    width: 38px;
+}
+
+.successful-delete {
+    background-color: #28c63a;
+    color: white;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unsuccessful-delete {
+    background-color: #DF3A39;
+    color: white;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
