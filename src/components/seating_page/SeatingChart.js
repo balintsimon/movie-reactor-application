@@ -27,13 +27,22 @@ const SeatingChart = (props) => {
         return table;
     }
 
-    function generateSeats(occupiedSeatIds, seatsHolder) {
+    function getOwnSeatIds() {
+        let ownSeatIds = [];
+        for (let occupiedSeat of occupiedSeats) {
+            if (occupiedSeat.visitor["id"]) ownSeatIds.push(parseInt(occupiedSeat.seat.id));
+        }
+        return ownSeatIds;
+    }
+
+    function generateSeats(occupiedSeatIds, ownSeatIds, seatsHolder) {
         let previousSeat = null;
         for (let seat of seats) {
             let isSeatOccupied = occupiedSeatIds.includes(parseInt(seat.id));
+            let isSeatMine = ownSeatIds.includes(parseInt(seat.id));
             let seatStyleClass = isSeatOccupied ? OCCUPIED_SEAT_CLASS : FREE_SEAT_CLASS;
-            let seatColor = isSeatOccupied ? REACTOR_YELLOW : "white";
-            let seatOpacity = isSeatOccupied ? "0.5" : "1";
+            let seatColor = isSeatOccupied && !isSeatMine? REACTOR_YELLOW : "white";
+            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.5" : "1";
             let currentRowNumber = parseInt(seat.rowNumber);
             let currentSeatNumber = parseInt(seat.seatNumber);
 
@@ -42,6 +51,7 @@ const SeatingChart = (props) => {
                              row={currentRowNumber}
                              column={currentSeatNumber}
                              id={seat.id}
+                             own={isSeatMine}
                              seatOccupiedClass={seatStyleClass}
                              seatColor={seatColor}
                              seatOpacity={seatOpacity}
@@ -57,8 +67,9 @@ const SeatingChart = (props) => {
 
     function fillSeatsTable() {
         let occupiedSeatIds = getOccupiedSeatIds();
+        let ownSeatIds = getOwnSeatIds();
         seatingArray = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
-        seatingArray = generateSeats(occupiedSeatIds, seatingArray);
+        seatingArray = generateSeats(occupiedSeatIds, ownSeatIds, seatingArray);
     }
 
     useEffect(() => {
