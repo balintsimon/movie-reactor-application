@@ -7,7 +7,7 @@ export const API_RESERVATION_URL = `${SERVER_URL}/booking/reservation`;
 export const API_WATCHLIST = `${SERVER_URL}/watchlist`;
 export const API_AUTHENTICATION = `${SERVER_URL}/auth`;
 
-export const API_URL_MOVIE = `${SERVER_URL}/movieservice/moviedb/movie/`
+export const API_URL_MOVIE = `${SERVER_URL}/movieservice/moviedb/movie`
 export const API_URL_PERSON = `${SERVER_URL}/movieservice/moviedb/person/`
 
 export const API_URL_PICTURE = "https://image.tmdb.org/t/p/"

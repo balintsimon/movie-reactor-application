@@ -9,15 +9,13 @@ import {limitString} from "../../Utils";
 import {
   API_URL_MOVIE,
   API_URL_PICTURE,
-  API_KEY,
   API_WATCHLIST,
   IMAGE_SIZES, GET_CONFIG, POST_CONFIG,
 } from "../../Constants";
 
 export default function MovieCard(props) {
   let movieId = props.movie;
-  // let currentMovieURL = `${API_URL_MOVIE}${movieId}?api_key=${API_KEY}`;
-  let currentMovieURL = `${API_URL_MOVIE}${movieId}`;
+  let currentMovieURL = `${API_URL_MOVIE}/${movieId}`;
 
   const [isLoading, actualMovie] = Get(currentMovieURL, movieId);
   const [isFlipped, setIsFlipped] = useState(false);

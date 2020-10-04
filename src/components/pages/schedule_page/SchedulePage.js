@@ -12,7 +12,7 @@ import {
   getYearFromDate,
   parseJSON
 } from "../../../Utils";
-import {API_KEY, API_SCHEDULE_URL, API_URL_MOVIE, API_URL_PICTURE, IMAGE_SIZES} from "../../../Constants";
+import {API_SCHEDULE_URL, API_URL_MOVIE, API_URL_PICTURE, IMAGE_SIZES} from "../../../Constants";
 
 import axios from "axios";
 import "./SchedulePage.css";
@@ -49,8 +49,7 @@ const SchedulePage = () => {
       }, []);
 
       useEffect(() => {
-        // const urls = movieIds.map(movieId => `${API_URL_MOVIE}${movieId}?api_key=${API_KEY}`);
-        const urls = movieIds.map(movieId => `${API_URL_MOVIE}${movieId}`);
+        const urls = movieIds.map(movieId => `${API_URL_MOVIE}/${movieId}`);
 
         Promise.all(urls.map(url =>
             fetch(url)

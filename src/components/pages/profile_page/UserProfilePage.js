@@ -6,7 +6,6 @@ import axios from "axios";
 import {uuid} from "uuidv4";
 import {
   API_RESERVATION_URL,
-  API_KEY,
   API_URL_MOVIE,
 } from "../../../Constants";
 import {checkStatus, formatDateWithDecimals, formatTime, parseJSON} from "../../../Utils";
@@ -39,8 +38,7 @@ const UserProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    // const urls = movieDbIds.map(movieId => `${API_URL_MOVIE}${movieId}?api_key=${API_KEY}`);
-    const urls = movieDbIds.map(movieId => `${API_URL_MOVIE}${movieId}`);
+    const urls = movieDbIds.map(movieId => `${API_URL_MOVIE}/${movieId}`);
     Promise.all(urls.map(url =>
         fetch(url)
             .then(checkStatus)
