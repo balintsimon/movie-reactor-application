@@ -6,15 +6,27 @@ import {API_RESERVATION_URL, OCCUPIED_SEAT_CLASS, OWN_RESERVED_SEAT_CLASS, REACT
 const ReserveSeatButton = (props) => {
   let id = props.showId;
   let [modalMessage, setModalMessage] = useState("");
+  let userNotLoggedInMessage = `Please log in to reserve seats.`;
+  let noSeatsSelectedMessage = `Please select seats for reservation.`
   let successfulPurchaseMessage = `Thank you for reserving seats for '${props.movieTitle}'! 
                                     Your reservation was successful.`;
   let failedPurchaseMessage = `Sorry, we can't fulfill your reservation for '${props.movieTitle}' at the moment.`;
 
   function reserveSeat(event) {
-    let reservedSeats = document.getElementsByClassName(`theater-seat fa ${OWN_RESERVED_SEAT_CLASS}`);
+    if (!localStorage.getItem("username")) {
+        setModalMessage(userNotLoggedInMessage);
+        return;
+    }
+
     let seats = [];
+    let reservedSeats = document.getElementsByClassName(`theater-seat fa ${OWN_RESERVED_SEAT_CLASS}`);
     for (let i = 0; i < reservedSeats.length; i++) {
       seats.push(parseInt(reservedSeats.item(i).dataset.id))
+    }
+
+    if (seats.length === 0) {
+        setModalMessage(noSeatsSelectedMessage);
+        return;
     }
 
     axios.post(API_RESERVATION_URL,
