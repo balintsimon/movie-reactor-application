@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import "./ReserveSeatButton.css";
 import axios from "axios";
-import {API_RESERVATION_URL, OCCUPIED_SEAT_CLASS, OWN_RESERVED_SEAT_CLASS, REACTOR_YELLOW} from "../../Constants";
+import {API_RESERVATION_URL, OCCUPIED_SEAT_CLASS, OWN_RESERVED_SEAT_CLASS} from "../../Constants";
 import {Link} from "react-router-dom";
 
 const ReserveSeatButton = (props) => {
@@ -62,8 +62,6 @@ const ReserveSeatButton = (props) => {
             let seat = reservedSeats.item(i);
             seat.classList.remove(OWN_RESERVED_SEAT_CLASS);
             seat.classList.add(OCCUPIED_SEAT_CLASS);
-            seat.style.color = REACTOR_YELLOW;
-            seat.style.opacity = "0.5";
           }
         });
   }
