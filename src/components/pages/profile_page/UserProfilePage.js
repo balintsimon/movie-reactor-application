@@ -84,17 +84,17 @@ const UserProfilePage = () => {
           data: seatsForDelete
         })
         .then(response => {
-          if (response.data === true) {
-            successfulDeleteIndicator(currentItem);
+          if (response.data["successful"] === true) {
+            successfulDeleteIndicator(currentItem, response.data["message"]);
           } else {
-            unsuccessfulDeleteIndicator(currentItem, showId, seatId, visitorId);
+            unsuccessfulDeleteIndicator(currentItem, showId, seatId, visitorId, response.data["message"]);
           }
         });
   }
 
-  const successfulDeleteIndicator = (element) => {
+  const successfulDeleteIndicator = (element, message) => {
     element.innerHTML = `<div class=${"successful-delete"}>
-            <strong>Reservation successfully deleted!</strong></div>`;
+            <strong>${message}</strong></div>`;
     setTimeout(() => {
       element.style.display = "none";
     }, 3000)
@@ -102,10 +102,10 @@ const UserProfilePage = () => {
 
   // TODO: rewrite code to either re-display full element OR modify it, showing that it has errors
   // TODO: rework back- and front-end to get the type of error
-  const unsuccessfulDeleteIndicator = (element, showId, seatId, visitorId) => {
+  const unsuccessfulDeleteIndicator = (element, showId, seatId, visitorId, message) => {
     let content = element.innerHTML;
     element.innerHTML = `<div class=${"unsuccessful-delete"}>
-            <strong>Reservation not deleted! Try again later.</strong></div>`;
+            <strong>Reservation not deleted! <span class=${"unsuccessful-delete-message"}>(${message})</span> Try again later.</strong></div>`;
     setTimeout(() => {
       element.innerHTML = content;
       let image = element.querySelector(".delete-button-img");
