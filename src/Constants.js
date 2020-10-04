@@ -15,8 +15,6 @@ export const API_URL_PICTURE = "https://image.tmdb.org/t/p/"
 export const IMDB_URL = "https://www.imdb.com/title/";
 export const IMDB_ACTOR_URL = "https://www.imdb.com/name/";
 
-export const API_KEY = process.env.REACT_APP_API_KEY;
-
 export const FREE_SEAT_CLASS =  "fa-square-o";
 export const OCCUPIED_SEAT_CLASS = "fa-square";
 export const OWN_RESERVED_SEAT_CLASS = "fa-plus-square";
