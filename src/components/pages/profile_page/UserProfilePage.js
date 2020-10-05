@@ -190,7 +190,6 @@ const UserProfilePage = () => {
                 {!isError && isLoading ?
                     <LoadingAnimation/>
                     : isError && !isLoading ?
-                        /*<div>Service unavailable! Try it later!</div>*/
                         <ErrorMessage message={`Service unavailable! Try it later!`}/>
                         : isMoviesLoaded && playedMovies.length > 0 ?
                             <div className="reservations-container">{displayReservations()}</div>
