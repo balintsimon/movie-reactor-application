@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {
     API_URL_MOVIE,
-    API_KEY,
     IMAGE_SIZES,
     API_SHOW_URL,
     API_ROOM_URL,
@@ -74,8 +73,7 @@ const SeatLayout = (props) => {
 
     useEffect(() => {
         if (movieDbId) {
-            movieUrl = `${API_URL_MOVIE}${movieDbId}`;
-            // movieUrl = `${API_URL_MOVIE}${movieDbId}?api_key=${API_KEY}`;
+            movieUrl = `${API_URL_MOVIE}/${movieDbId}`;
             axios
                 .get(movieUrl)
                 .then((res) => {
