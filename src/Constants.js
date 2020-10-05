@@ -7,15 +7,13 @@ export const API_RESERVATION_URL = `${SERVER_URL}/booking/reservation`;
 export const API_WATCHLIST = `${SERVER_URL}/watchlist`;
 export const API_AUTHENTICATION = `${SERVER_URL}/auth`;
 
-export const API_URL_MOVIE = `${SERVER_URL}/movieservice/moviedb/movie/`
-export const API_URL_PERSON = `${SERVER_URL}/movieservice/moviedb/person/`
+export const API_URL_MOVIE = `${SERVER_URL}/movieservice/moviedb/movie`
+export const API_URL_PERSON = `${SERVER_URL}/movieservice/moviedb/person`
 
 export const API_URL_PICTURE = "https://image.tmdb.org/t/p/"
 
 export const IMDB_URL = "https://www.imdb.com/title/";
 export const IMDB_ACTOR_URL = "https://www.imdb.com/name/";
-
-export const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const FREE_SEAT_CLASS =  "fa-square-o";
 export const OCCUPIED_SEAT_CLASS = "fa-square";
