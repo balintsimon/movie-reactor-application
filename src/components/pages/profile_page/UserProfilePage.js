@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import HorizontalLine from "../movie_detail_page/FirstRow";
 import LoadingAnimation from "../../loading_animation/LoadingAnimation";
+import ErrorMessage from "./ErrorMessage";
 import "./UserProfilePage.css";
 import axios from "axios";
 
@@ -104,8 +105,6 @@ const UserProfilePage = () => {
     }, 3000)
   };
 
-  // TODO: rewrite code to either re-display full element OR modify it, showing that it has errors
-  // TODO: rework back- and front-end to get the type of error
   const unsuccessfulDeleteIndicator = (element, showId, seatId, visitorId, message) => {
     let content = element.innerHTML;
     element.innerHTML = `<div class=${"unsuccessful-delete"}>
@@ -118,7 +117,6 @@ const UserProfilePage = () => {
       })
     }, 3000)
   };
-
 
   const displayReservations = () => {
     let reservationContainer = [];
@@ -182,7 +180,7 @@ const UserProfilePage = () => {
               <div className="col-md-12 reservations-title-column">
                 <div className="reservations">
                   <div className="reservations-title-container">
-                    <div className="reservation-value">
+                    <div className="reservation-value no-select">
                       {"Reservations".toUpperCase()}
                     </div>
                   </div>
@@ -192,15 +190,14 @@ const UserProfilePage = () => {
                 {!isError && isLoading ?
                     <LoadingAnimation/>
                     : isError && !isLoading ?
-                        <div>Service unavailable! Try it later!</div>
+                        /*<div>Service unavailable! Try it later!</div>*/
+                        <ErrorMessage message={`Service unavailable! Try it later!`}/>
                         : isMoviesLoaded && playedMovies.length > 0 ?
                             <div className="reservations-container">{displayReservations()}</div>
                             : reservations.length > 0 ?
                                 <LoadingAnimation/>
-                                : <div className="reservation-item-container">{localStorage.getItem("username")} has
-                                    no
-                                    reservations.
-                                </div>}
+                                : <ErrorMessage message={` has no reservations.`} username={localStorage.getItem("username")}/>
+                }
               </div>
             </div>
           </div>
