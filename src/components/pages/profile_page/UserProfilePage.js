@@ -50,7 +50,6 @@ const UserProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    //const urls = movieDbIds.map(movieId => `${API_URL_MOVIE}${movieId}`);
     const urls = movieDbIds.map(movieId => `${API_URL_MOVIE}/${movieId}`);
     Promise.all(urls.map(url =>
         fetch(url)
