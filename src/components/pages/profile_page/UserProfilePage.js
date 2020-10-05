@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import HorizontalLine from "../movie_detail_page/FirstRow";
+import LoadingAnimation from "../../loading_animation/LoadingAnimation";
 import "./UserProfilePage.css";
 import axios from "axios";
 
 import {uuid} from "uuidv4";
 import {
   API_RESERVATION_URL,
-  API_KEY,
   API_URL_MOVIE,
 } from "../../../Constants";
 import {checkStatus, formatDateWithDecimals, formatTime, parseJSON} from "../../../Utils";
@@ -57,8 +57,7 @@ const UserProfilePage = () => {
             .catch(error => console.log('There was a problem!', error))
     ))
         .then(data => {
-          data.map((movie) => {
-
+          data.forEach(movie => {
             let movieObj = {};
             movieObj[movie["id"]] = movie["title"];
             setPlayedMovies(prevState => [...prevState, movieObj]);
@@ -191,17 +190,13 @@ const UserProfilePage = () => {
               </div>
               <div className="col-md-12 reservations-container-column">
                 {!isError && isLoading ?
-                    <div className="loading-animation-container"><img className="loading-image"
-                                                                      src={`/images/load_icon_4.png`} alt="Loading screen"/></div>
+                    <LoadingAnimation/>
                     : isError && !isLoading ?
                         <div>Service unavailable! Try it later!</div>
                         : isMoviesLoaded && playedMovies.length > 0 ?
                             <div className="reservations-container">{displayReservations()}</div>
                             : reservations.length > 0 ?
-                                <div className="loading-animation-container"><img className="loading-image"
-                                                                                  src={`/images/load_icon_4.png`}
-                                                                                  alt=""/>
-                                </div>
+                                <LoadingAnimation/>
                                 : <div className="reservation-item-container">{localStorage.getItem("username")} has
                                     no
                                     reservations.
