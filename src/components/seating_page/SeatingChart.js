@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import TheaterSeat from "./TheaterSeat";
 import {FREE_SEAT_CLASS, OCCUPIED_SEAT_CLASS, REACTOR_YELLOW} from "../../Constants";
+import "./Theater.css";
+
 const SeatingChart = (props) => {
     let occupiedSeats = props.reservedSeats;
     let room = props.room;
@@ -92,9 +94,12 @@ const SeatingChart = (props) => {
     fillSeatsTable();
 
     return (
-        <div style={mainCardStyle} key="seating-chart">
-            {seatChart}
+        <div>
+            <div style={mainCardStyle} key="seating-chart-left" className="cinema-seats left">
+                {seatChart}
+            </div>
         </div>
+
     )
 }
 
@@ -103,7 +108,7 @@ export default SeatingChart;
 const mainCardStyle = {
     display: "flex",
     position: "absolute",
-    top: "58%",
+    top: "60%",
     left: "50%",
     transform: "translate(-50%)",
     zIndex: "0",
