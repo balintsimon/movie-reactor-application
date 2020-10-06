@@ -112,7 +112,6 @@ const SeatLayout = (props) => {
                         <Legends/>
                         <ReserveSeatButton showId={screeningId} movieTitle={title}/>
                     </div>
-                    <h1>{title}</h1>
                 </div>
             </div>
             <div className="col-1 align-self-end" style={{...mainColumnStyle, ...{backgroundColor: "#e6b31e"}}}/>
