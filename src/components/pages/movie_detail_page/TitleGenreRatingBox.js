@@ -21,7 +21,8 @@ const TitleGenreRatingBox = (props) => {
     return (
         <div style={{
             background: props.backdrop !== null ? "rgba(52,52,52,0.15)" : "rgba(52,52,52)",
-            backdropFilter: "blur(20px)"
+            // backdropFilter: "blur(20px)"
+            backdropFilter: "blur(4px)"
         }}>
             <div className="row no-gutters">
                 <div className="col-md-12"
