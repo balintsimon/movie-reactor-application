@@ -5,7 +5,8 @@ const SeatingChart = (props) => {
     let occupiedSeats = props.reservedSeats;
     let room = props.room;
     let seats = room.seats;
-    let seatingArray = [[]];
+    let seatContainer = [[]];
+    let seatChart = [];
 
     function getOccupiedSeatIds() {
         let occupiedSeatIds = [];
@@ -17,9 +18,9 @@ const SeatingChart = (props) => {
 
     function createEmpty2DContainer(numberOfRows, numberOfColumns) {
         let table = [[]];
-        for (let actualRowNumber = 0; actualRowNumber < numberOfRows - 1; actualRowNumber++) {
+        for (let actualSeatNumber = 0; actualSeatNumber < numberOfColumns; actualSeatNumber++) {
             let row = []
-            for (let actualSeatNumber = 0; actualSeatNumber < numberOfColumns; actualSeatNumber++) {
+            for (let actualRowNumber = 0; actualRowNumber < numberOfRows - 1; actualRowNumber++) {
                 row.push(<div>Seat loading</div>)
             }
             table.push(row);
@@ -46,7 +47,7 @@ const SeatingChart = (props) => {
             let currentRowNumber = parseInt(seat.rowNumber);
             let currentSeatNumber = parseInt(seat.seatNumber);
 
-            seatsHolder[currentRowNumber - 1][currentSeatNumber - 1] = (
+            seatsHolder[currentSeatNumber - 1][currentRowNumber - 1] = (
                 <TheaterSeat key={`row-${currentRowNumber}-seat-${currentSeatNumber}`}
                              row={currentRowNumber}
                              column={currentSeatNumber}
@@ -57,7 +58,7 @@ const SeatingChart = (props) => {
                              seatOpacity={seatOpacity}
                 />);
             if (previousSeat != null && parseInt(previousSeat.rowNumber) < currentRowNumber + 1) {
-                seatsHolder[currentRowNumber - 1][currentSeatNumber] =
+                seatsHolder[currentSeatNumber][currentRowNumber - 1] =
                     <p key={`element-${currentRowNumber}`} className="row no-gutters"/>;
             }
             previousSeat = seat;
@@ -65,11 +66,23 @@ const SeatingChart = (props) => {
         return seatsHolder;
     }
 
+    function fillSeatChart(seatingArray, seatChart) {
+        for (let rowNumber = 0; rowNumber < room.numberOfSeatsPerRow; rowNumber++) {
+            let seats = seatingArray[rowNumber];
+            seatChart.push(
+                <div className={`cinema-row row-${rowNumber + 1}`}>
+                    {seats}
+                </div>);
+        }
+        return seatChart;
+    }
+
     function fillSeatsTable() {
         let occupiedSeatIds = getOccupiedSeatIds();
         let ownSeatIds = getOwnSeatIds();
-        seatingArray = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
-        seatingArray = generateSeats(occupiedSeatIds, ownSeatIds, seatingArray);
+        seatContainer = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
+        seatContainer = generateSeats(occupiedSeatIds, ownSeatIds, seatContainer);
+        seatChart = fillSeatChart(seatContainer, seatChart);
     }
 
     useEffect(() => {
@@ -79,10 +92,8 @@ const SeatingChart = (props) => {
     fillSeatsTable();
 
     return (
-        <div style={mainCardStyle}
-             key="seating-chart"
-             className="card-deck m-auto">
-            {seatingArray}
+        <div style={mainCardStyle} key="seating-chart">
+            {seatChart}
         </div>
     )
 }
@@ -90,6 +101,7 @@ const SeatingChart = (props) => {
 export default SeatingChart;
 
 const mainCardStyle = {
+    display: "flex",
     position: "absolute",
     top: "58%",
     left: "50%",
