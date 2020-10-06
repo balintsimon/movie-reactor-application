@@ -1,0 +1,27 @@
+.error-message {
+    background-color: red;
+    width: 80%;
+    margin: auto;
+    height: 60px;
+    display: flex;
+}
+
+.error-text-container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-text {
+    margin: auto;
+    color: black;
+    font-size: 20px;
+}
+
+.user-name-error {
+    margin: auto;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
