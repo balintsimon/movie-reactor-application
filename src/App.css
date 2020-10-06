@@ -147,7 +147,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .menu-button {
     background-color: #e6b31e;
-    /*color: #343434;*/
     color: white;
 
     width: 130%;
@@ -217,4 +216,15 @@ body {
 
 span {
     outline: none;
+}
+
+/*Use this class on every text if you don't want a text to be selectable with cursor.*/
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
 }
