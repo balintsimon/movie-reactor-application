@@ -1,11 +1,12 @@
 import React from "react";
+import "./TheaterTextSizing.css";
 
 const ShowTime = (props) => {
 
     return (
         <div style={timeStlye}>
-            <div className="hazy" style={{fontSize: "1.2em"}}>Show time</div>
-            <div style={{fontSize: "2.5em"}}>{props.time}</div>
+            <div className="hazy sub-title" >Show time</div>
+            <div className="field-data">{props.time}</div>
         </div>
     )
 }
