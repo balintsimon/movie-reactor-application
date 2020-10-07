@@ -49,8 +49,10 @@ function App() {
                                     render={() => (
                                         <div style={cardStyle}>
                                             <SelectionPage
-                                                selection={"top_rated"}
-                                                title={"Top rated movies"}
+                                                // selection={"top_rated"}
+                                                // title={"Top rated movies"}
+                                                selection={"popular"}
+                                                title={"Popular movies"}
                                             />
                                         </div>
                                     )}

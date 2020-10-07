@@ -120,7 +120,7 @@ export default class Menu extends Component {
                     <Link
                         id="home"
                         className="menu-item"
-                        to="/"
+                        to="/top_rated"
                         style={{color: "#2e2e2e", textDecoration: "none"}}
                         onClick={() => this.closeMenu()}
                     >
