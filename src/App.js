@@ -109,7 +109,8 @@ function App() {
                                 <Route path="/auth/register" children={<RegisterPage/>}/>
                                 <Route path="/auth/login" children={<LoginPage/>}/>
                                 <Route path="/auth/logout" children={<Logout/>}/>
-                                <Route path="/profile" children={<UserProfilePage/>}/>
+                                {/*<Route path="/profile" children={<UserProfilePage/>}/>*/}
+                                <Route path="/reservations" children={<UserProfilePage/>}/>
                                 <Route
                                     exact
                                     path="/watchlist"
