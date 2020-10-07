@@ -54,11 +54,12 @@ export default class Menu extends Component {
                             id="reservations"
                             key="reservations"
                             className="menu-item"
-                            to="/profile"
+                            // to="/profile"
+                            to="/reservations"
                             style={{color: "red", textDecoration: "none"}}
                             onClick={() => this.closeMenu()}
                         >
-                            <div className="menu-button">Profile</div>
+                            <div className="menu-button">Reservations</div>
                         </Link>
                         <Link
                             id="watchlist"
