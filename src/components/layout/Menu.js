@@ -46,8 +46,8 @@ export default class Menu extends Component {
             >
                 {localStorage.getItem("username") ?
                     (<Collapsible trigger={`WELCOME ${localStorage.getItem("username")}`}
-                                  className="menu-collapsible"
-                                  openedClassName="menu-collapsible-open"
+                                  className="menu-collapsible no-select"
+                                  openedClassName="menu-collapsible-open no-select"
                                   overflowWhenOpen="initial"
                     >
                         <Link
@@ -86,8 +86,8 @@ export default class Menu extends Component {
                     (<Collapsible
                         trigger="ACCOUNT"
 
-                        className="menu-collapsible"
-                        openedClassName="menu-collapsible-open"
+                        className="menu-collapsible no-select"
+                        openedClassName="menu-collapsible-open no-select"
                         overflowWhenOpen="initial"
                     >
                         <Link
@@ -113,8 +113,8 @@ export default class Menu extends Component {
                     </Collapsible>)
                 }
                 <Collapsible trigger="RECOMMENDED MOVIES"
-                             className="menu-collapsible"
-                             openedClassName="menu-collapsible-open"
+                             className="menu-collapsible no-select"
+                             openedClassName="menu-collapsible-open no-select"
                              overflowWhenOpen="initial"
                 >
                     <Link
@@ -156,8 +156,8 @@ export default class Menu extends Component {
                     </Link>
                 </Collapsible>
                 <Collapsible trigger="THEATER"
-                             className="menu-collapsible"
-                             openedClassName="menu-collapsible-open"
+                             className="menu-collapsible no-select"
+                             openedClassName="menu-collapsible-open no-select"
                              overflowWhenOpen="initial"
                 >
                     <Link

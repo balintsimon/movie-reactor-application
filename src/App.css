@@ -186,7 +186,9 @@ body {
 }
 
 .errorMessage {
-    color: #DF3A39;
+    color: #e6b31e;
+    font-weight: bold;
+    font-size: 1.3em;
     margin-top: 5%;
     font-family: "Roboto", sans-serif;
 }
