@@ -228,3 +228,21 @@ span {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
 }
+
+.frosted {
+    background: rgba(52,52,52,0.25)
+}
+
+@supports (backdrop-filter: none) {
+    .frosted {
+        background: rgba(52, 52, 52, 0.3);
+        backdrop-filter: blur(8px);
+    }
+    @media only screen and (max-width: 1280px) {
+        .frosted {
+            background: rgba(52, 52, 52, 0.3);
+            backdrop-filter: blur(20px);
+        }
+    }
+
+}
