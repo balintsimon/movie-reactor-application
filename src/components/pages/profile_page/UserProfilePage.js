@@ -118,8 +118,29 @@ const UserProfilePage = () => {
     }, 3000)
   };
 
+  function compareReservations(A, B) {
+    // First sort by starting date, desc.
+    if (A.show.startingDate < B.show.startingDate) {
+      return 1;
+    }
+    if (A.show.startingDate > B.show.startingDate) {
+      return -1;
+    }
+
+    // Sort by starting time, desc.
+    if (A.show.startingTime < B.show.startingTime) {
+      return 1;
+    }
+    if (A.show.startingTime > B.show.startingTime) {
+      return -1;
+    }
+
+    return 0;
+  }
+
   const displayReservations = () => {
     let reservationContainer = [];
+    reservations.sort(compareReservations);
     for (let reservation of reservations) {
       reservationContainer.push(
           <div key={uuid()} className="reservation-item-container">
