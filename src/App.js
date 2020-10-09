@@ -21,13 +21,9 @@ import UserProfilePage from "./components/pages/profile_page/UserProfilePage";
 
 function App() {
 
-    // TODO: test if by using interceptor can get rid of Constant Configs
     axios.interceptors.request.use(function (config) {
         const token = localStorage.getItem("token");
         config.headers.Authorization = `Bearer ${token}`;
-        // TODO: get rid of username header (it opens the code up to attack, get information from token)
-        // config.headers.username = `${localStorage.getItem("username")}`;
-
         return config;
     });
 
@@ -49,8 +45,10 @@ function App() {
                                     render={() => (
                                         <div style={cardStyle}>
                                             <SelectionPage
-                                                selection={"top_rated"}
-                                                title={"Top rated movies"}
+                                                // selection={"top_rated"}
+                                                // title={"Top rated movies"}
+                                                selection={"popular"}
+                                                title={"Popular movies"}
                                             />
                                         </div>
                                     )}
