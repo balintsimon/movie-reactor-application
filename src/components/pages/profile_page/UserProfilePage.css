@@ -201,3 +201,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.unsuccessful-delete-message {
+    font-style: italic;
+    color: black;
+}

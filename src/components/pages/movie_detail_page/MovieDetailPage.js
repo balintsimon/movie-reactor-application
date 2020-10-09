@@ -13,16 +13,16 @@ import Overview from "./Overview";
 import LoadingEmptyScreen from "./LoadingEmptyScreen";
 import InvalidIdScreen from "./InvalidIdScreen";
 
-import {API_KEY, API_SCHEDULED_MOVIES_URL, API_URL_MOVIE, IMAGE_SIZES} from "../../../Constants";
+import {API_SHOW_URL, API_URL_MOVIE, IMAGE_SIZES} from "../../../Constants";
 import {getIdFromUrl} from "../../../Utils";
 import MovieActors from "./MovieActors";
 
 const MovieDetailPage = () => {
 
     let movieId = getIdFromUrl();
-    let movieUrl = `${API_URL_MOVIE}${movieId}?api_key=${API_KEY}`;
-    let videoUrl = `${API_URL_MOVIE}${movieId}/videos?api_key=${API_KEY}`;
-    let actorUrl = `${API_URL_MOVIE}${movieId}/credits?api_key=${API_KEY}`;
+    let movieUrl = `${API_URL_MOVIE}/${movieId}`;
+    let videoUrl = `${API_URL_MOVIE}/${movieId}/videos`;
+    let actorUrl = `${API_URL_MOVIE}/${movieId}/credits`;
 
     const [unavailable, setUnavailable] = useState(true);
     const [loaded, setLoaded] = useState(false);
@@ -98,7 +98,7 @@ const MovieDetailPage = () => {
                 }
             });
         axios
-            .get(API_SCHEDULED_MOVIES_URL) // TODO: check endpoint
+            .get(`${API_SHOW_URL}/movie`) // TODO: check endpoint
             .then(res => {
                 setIsScheduledMovie(res.data.movies.map(movie => movie["movieDbId"]).includes(parseInt(movieId)));
             })

@@ -5,7 +5,8 @@ const SeatingChart = (props) => {
     let occupiedSeats = props.reservedSeats;
     let room = props.room;
     let seats = room.seats;
-    let seatingArray = [[]];
+    let seatContainer = [[]];
+    let seatChart = [];
 
     function getOccupiedSeatIds() {
         let occupiedSeatIds = [];
@@ -17,9 +18,9 @@ const SeatingChart = (props) => {
 
     function createEmpty2DContainer(numberOfRows, numberOfColumns) {
         let table = [[]];
-        for (let actualRowNumber = 0; actualRowNumber < numberOfRows - 1; actualRowNumber++) {
+        for (let actualSeatNumber = 0; actualSeatNumber < numberOfColumns; actualSeatNumber++) {
             let row = []
-            for (let actualSeatNumber = 0; actualSeatNumber < numberOfColumns; actualSeatNumber++) {
+            for (let actualRowNumber = 0; actualRowNumber < numberOfRows - 1; actualRowNumber++) {
                 row.push(<div>Seat loading</div>)
             }
             table.push(row);
@@ -27,27 +28,37 @@ const SeatingChart = (props) => {
         return table;
     }
 
-    function generateSeats(occupiedSeatIds, seatsHolder) {
+    function getOwnSeatIds() {
+        let ownSeatIds = [];
+        for (let occupiedSeat of occupiedSeats) {
+            if (occupiedSeat.visitor["id"]) ownSeatIds.push(parseInt(occupiedSeat.seat.id));
+        }
+        return ownSeatIds;
+    }
+
+    function generateSeats(occupiedSeatIds, ownSeatIds, seatsHolder) {
         let previousSeat = null;
         for (let seat of seats) {
             let isSeatOccupied = occupiedSeatIds.includes(parseInt(seat.id));
+            let isSeatMine = ownSeatIds.includes(parseInt(seat.id));
             let seatStyleClass = isSeatOccupied ? OCCUPIED_SEAT_CLASS : FREE_SEAT_CLASS;
-            let seatColor = isSeatOccupied ? REACTOR_YELLOW : "white";
-            let seatOpacity = isSeatOccupied ? "0.5" : "1";
+            let seatColor = isSeatOccupied && !isSeatMine? REACTOR_YELLOW : "white";
+            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.5" : "1";
             let currentRowNumber = parseInt(seat.rowNumber);
             let currentSeatNumber = parseInt(seat.seatNumber);
 
-            seatsHolder[currentRowNumber - 1][currentSeatNumber - 1] = (
+            seatsHolder[currentSeatNumber - 1][currentRowNumber - 1] = (
                 <TheaterSeat key={`row-${currentRowNumber}-seat-${currentSeatNumber}`}
                              row={currentRowNumber}
                              column={currentSeatNumber}
                              id={seat.id}
+                             own={isSeatMine}
                              seatOccupiedClass={seatStyleClass}
                              seatColor={seatColor}
                              seatOpacity={seatOpacity}
                 />);
             if (previousSeat != null && parseInt(previousSeat.rowNumber) < currentRowNumber + 1) {
-                seatsHolder[currentRowNumber - 1][currentSeatNumber] =
+                seatsHolder[currentSeatNumber][currentRowNumber - 1] =
                     <p key={`element-${currentRowNumber}`} className="row no-gutters"/>;
             }
             previousSeat = seat;
@@ -55,10 +66,23 @@ const SeatingChart = (props) => {
         return seatsHolder;
     }
 
+    function fillSeatChart(seatingArray, seatChart) {
+        for (let rowNumber = 0; rowNumber < room.numberOfSeatsPerRow; rowNumber++) {
+            let seats = seatingArray[rowNumber];
+            seatChart.push(
+                <div className={`cinema-row row-${rowNumber + 1}`}>
+                    {seats}
+                </div>);
+        }
+        return seatChart;
+    }
+
     function fillSeatsTable() {
         let occupiedSeatIds = getOccupiedSeatIds();
-        seatingArray = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
-        seatingArray = generateSeats(occupiedSeatIds, seatingArray);
+        let ownSeatIds = getOwnSeatIds();
+        seatContainer = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
+        seatContainer = generateSeats(occupiedSeatIds, ownSeatIds, seatContainer);
+        seatChart = fillSeatChart(seatContainer, seatChart);
     }
 
     useEffect(() => {
@@ -68,10 +92,8 @@ const SeatingChart = (props) => {
     fillSeatsTable();
 
     return (
-        <div style={mainCardStyle}
-             key="seating-chart"
-             className="card-deck m-auto">
-            {seatingArray}
+        <div style={mainCardStyle} key="seating-chart">
+            {seatChart}
         </div>
     )
 }
@@ -79,6 +101,7 @@ const SeatingChart = (props) => {
 export default SeatingChart;
 
 const mainCardStyle = {
+    display: "flex",
     position: "absolute",
     top: "58%",
     left: "50%",

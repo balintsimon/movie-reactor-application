@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import HorizontalLine from "../movie_detail_page/FirstRow";
-import {API_KEY, API_URL_PERSON, API_URL_PICTURE, IMAGE_SIZES, IMDB_ACTOR_URL} from "../../../Constants";
+import {API_URL_PERSON, API_URL_PICTURE, IMAGE_SIZES, IMDB_ACTOR_URL} from "../../../Constants";
 
 import axios from "axios";
 import {uuid} from "uuidv4";
@@ -29,7 +29,7 @@ const ActorDetailPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-        .get(`${API_URL_PERSON}${actorId}?api_key=${API_KEY}`)
+        .get(`${API_URL_PERSON}/${actorId}`)
         .then(res => {
           setBirthDay(res.data["birthday"])
           setDeathDay(res.data["deathday"])
@@ -40,7 +40,7 @@ const ActorDetailPage = () => {
           setPictureUrl(res.data["profile_path"])
         })
     axios
-        .get(`${API_URL_PERSON}${actorId}/movie_credits?api_key=${API_KEY}`)
+        .get(`${API_URL_PERSON}/${actorId}/movie_credits`)
         .then(res => {
           res.data["cast"].map((cast) => (
               setCasts(prevState => [...prevState,

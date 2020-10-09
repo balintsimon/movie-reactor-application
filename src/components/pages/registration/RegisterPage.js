@@ -41,9 +41,9 @@ const RegisterPage = () => {
                     <input className="input" type="text" placeholder="firstname" onChange={event => setFirstname(event.target.value)} required/>
                     <input className="input" type="text" placeholder="lastname" onChange={event => setLastname(event.target.value)} required/>
                     <select className="dropdown" defaultValue="MAN" name="gender" id="gender">
-                        <option value="MAN">MAN</option>
-                        <option value="WOMAN">WOMAN</option>
-                        <option value="GENERAL">GENERAL</option>
+                        <option value="MAN">MALE</option>
+                        <option value="WOMAN">FEMALE</option>
+                        <option value="GENERAL">PREFER NOT TO SAY</option>
                     </select>
                     <input className="input" type="text" placeholder="email" onChange={event => setEmail(event.target.value)} required/>
                     <input className="input" type="text" placeholder="username" onChange={event => setUsername(event.target.value)} required/>

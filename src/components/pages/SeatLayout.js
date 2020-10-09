@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {
     API_URL_MOVIE,
-    API_KEY,
     IMAGE_SIZES,
     API_SHOW_URL,
     API_ROOM_URL,
@@ -14,11 +13,12 @@ import FirstRow from "./movie_detail_page/FirstRow";
 import SeatingChart from "../seating_page/SeatingChart";
 import ShowTime from "../seating_page/ShowTime";
 import ShowDate from "../seating_page/ShowDate";
-import Theater from "../seating_page/Theater";
+import TheaterRoomName from "../seating_page/TheaterRoomName";
 import RuntimeElement from "../seating_page/RuntimeElement";
 import ScreenLine from "../seating_page/ScreenLine";
 import Legends from "../seating_page/Legends";
 import ReserveSeatButton from "../seating_page/ReserveSeatButton";
+import "../seating_page/TheaterTextSizing.css";
 
 const SeatLayout = (props) => {
     let screeningId = getIdFromUrl();
@@ -74,7 +74,7 @@ const SeatLayout = (props) => {
 
     useEffect(() => {
         if (movieDbId) {
-            movieUrl = `${API_URL_MOVIE}${movieDbId}?api_key=${API_KEY}`;
+            movieUrl = `${API_URL_MOVIE}/${movieDbId}`;
             axios
                 .get(movieUrl)
                 .then((res) => {
@@ -98,9 +98,9 @@ const SeatLayout = (props) => {
                                         backdrop={backdrop}/>
                     </div>
                     <div>
-                        <h1 style={titleStyle}>{title} <span className="hazy">({releaseDate.substring(0, 4)})</span>
+                        <h1 className="movie-title">{title} <span className="hazy">({releaseDate.substring(0, 4)})</span>
                         </h1>
-                        {room ? <Theater theater={room.name}/> : <div/>}
+                        {room ? <TheaterRoomName theater={room.name}/> : <div/>}
                         <ShowTime time={startingTime}/>
                         <ShowDate date={startingDate}/>
                         <RuntimeElement runtime={runtime}/>
@@ -112,7 +112,6 @@ const SeatLayout = (props) => {
                         <Legends/>
                         <ReserveSeatButton showId={screeningId} movieTitle={title}/>
                     </div>
-                    <h1>{title}</h1>
                 </div>
             </div>
             <div className="col-1 align-self-end" style={{...mainColumnStyle, ...{backgroundColor: "#e6b31e"}}}/>
@@ -126,15 +125,5 @@ const mainColumnStyle = {
     flexFlow: "row wrap",
     height: "1500px",
     padding: "0"
-}
-
-const titleStyle = {
-    position: "absolute",
-    fontSize: "3em",
-    top: "30%",
-    left: "53%",
-    transform: "translate(-50%, -7%)",
-    zIndex: "1",
-    color: "white",
 }
 

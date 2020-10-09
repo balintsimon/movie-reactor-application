@@ -1,0 +1,56 @@
+.movie-title {
+    position: absolute;
+    font-size: 3em;
+    top: 30%;
+    left: 53%;
+    transform: translate(-50%, -7%);
+    z-index: 1;
+    color: white;
+}
+
+.sub-title {
+    font-size: 1.2em;
+}
+
+.field-data {
+    font-size: 2.5em;
+}
+
+@media screen and (max-width: 1800px) {
+    .movie-title {
+        font-size: 2.5em;
+    }
+    .sub-title {
+        font-size: 1.2em;
+    }
+    .field-data {
+        font-size: 2.5em;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .sub-title {
+        font-size: 1em;
+    }
+    .field-data {
+        font-size: 2em;
+    }
+
+}
+
+@media screen and (max-width: 1200px) {
+    .movie-title {
+        font-size: 2em;
+    }
+    .field-data {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .movie-title {
+        font-size: 1.5em;
+    }
+
+}
+

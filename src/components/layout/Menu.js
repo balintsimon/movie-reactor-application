@@ -46,19 +46,20 @@ export default class Menu extends Component {
             >
                 {localStorage.getItem("username") ?
                     (<Collapsible trigger={`WELCOME ${localStorage.getItem("username")}`}
-                                  className="menu-collapsible"
-                                  openedClassName="menu-collapsible-open"
+                                  className="menu-collapsible no-select"
+                                  openedClassName="menu-collapsible-open no-select"
                                   overflowWhenOpen="initial"
                     >
                         <Link
                             id="reservations"
                             key="reservations"
                             className="menu-item"
-                            to="/profile"
+                            // to="/profile"
+                            to="/reservations"
                             style={{color: "red", textDecoration: "none"}}
                             onClick={() => this.closeMenu()}
                         >
-                            <div className="menu-button">Profile</div>
+                            <div className="menu-button">Reservations</div>
                         </Link>
                         <Link
                             id="watchlist"
@@ -85,8 +86,8 @@ export default class Menu extends Component {
                     (<Collapsible
                         trigger="ACCOUNT"
 
-                        className="menu-collapsible"
-                        openedClassName="menu-collapsible-open"
+                        className="menu-collapsible no-select"
+                        openedClassName="menu-collapsible-open no-select"
                         overflowWhenOpen="initial"
                     >
                         <Link
@@ -112,14 +113,14 @@ export default class Menu extends Component {
                     </Collapsible>)
                 }
                 <Collapsible trigger="RECOMMENDED MOVIES"
-                             className="menu-collapsible"
-                             openedClassName="menu-collapsible-open"
+                             className="menu-collapsible no-select"
+                             openedClassName="menu-collapsible-open no-select"
                              overflowWhenOpen="initial"
                 >
                     <Link
                         id="home"
                         className="menu-item"
-                        to="/"
+                        to="/top_rated"
                         style={{color: "#2e2e2e", textDecoration: "none"}}
                         onClick={() => this.closeMenu()}
                     >
@@ -155,8 +156,8 @@ export default class Menu extends Component {
                     </Link>
                 </Collapsible>
                 <Collapsible trigger="THEATER"
-                             className="menu-collapsible"
-                             openedClassName="menu-collapsible-open"
+                             className="menu-collapsible no-select"
+                             openedClassName="menu-collapsible-open no-select"
                              overflowWhenOpen="initial"
                 >
                     <Link
