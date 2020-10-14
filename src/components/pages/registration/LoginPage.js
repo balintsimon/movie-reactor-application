@@ -15,8 +15,8 @@ const LoginPage = () => {
     const checkResponse = (response) => {
         if (response.data.correct) {
             localStorage.setItem("username", response.data.username);
-            localStorage.setItem("token", response.data.token);
             localStorage.setItem("gender", response.data.gender);
+            // window.location.href = "/";
             redirect();
         } else {
             setMessage(response.data.msg);
@@ -31,7 +31,9 @@ const LoginPage = () => {
     const sendRequest = (event) => {
         event.preventDefault();
         let params = {"username": username, "password": password}; // TODO: check how to prevent this information from being intercepted?
-        axios.post(`${API_AUTHENTICATION}/login`, params).then(response => checkResponse(response)) // TODO: check endpoint
+        axios
+            .post(`${API_AUTHENTICATION}/login`, params, {withCredentials: true})
+            .then(response => checkResponse(response))
     };
 
     return (

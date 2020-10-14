@@ -41,7 +41,7 @@ const SeatLayout = (props) => {
     useEffect(() => {
         window.scrollTo(0, 0);
         axios
-            .get(`${API_SHOW_URL}/${screeningId}`)
+            .get(`${API_SHOW_URL}/${screeningId}`, {withCredentials: true})
             .then((res) => {
                 setShowId(res.data.id);
                 setMovieDbId(res.data.movieDbId);
@@ -55,7 +55,7 @@ const SeatLayout = (props) => {
     useEffect(() => {
         if (roomId != null){
             axios
-                .get(`${API_ROOM_URL}/${roomId}`)
+                .get(`${API_ROOM_URL}/${roomId}`, {withCredentials: true})
                 .then(res => {
                     setRoom(res.data);
                 })
@@ -65,7 +65,7 @@ const SeatLayout = (props) => {
     useEffect(() => {
         if (showId != null) {
             axios
-                .get(`${API_RESERVATION_URL}/show/${showId}`)
+                .get(`${API_RESERVATION_URL}/show/${showId}`, {withCredentials: true})
                 .then(res => {
                     setReservedSeats(res.data.bookings);
                 })
@@ -76,7 +76,7 @@ const SeatLayout = (props) => {
         if (movieDbId) {
             movieUrl = `${API_URL_MOVIE}/${movieDbId}`;
             axios
-                .get(movieUrl)
+                .get(movieUrl, {withCredentials: true})
                 .then((res) => {
                     setBackdrop(res.data["backdrop_path"]);
                     setTitle(res.data["title"]);

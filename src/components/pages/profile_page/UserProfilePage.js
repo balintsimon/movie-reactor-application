@@ -34,7 +34,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-        .get(API_RESERVATION_URL)
+        .get(API_RESERVATION_URL, {withCredentials: true})
         .then(res => {
           setLoading(false);
           let bookings = res.data["bookings"];
@@ -87,7 +87,7 @@ const UserProfilePage = () => {
     axios
         .delete(API_RESERVATION_URL, {
           data: seatsForDelete
-        })
+        }, {withCredentials: true})
         .then(response => {
           if (response.data["successful"] === true) {
             successfulDeleteIndicator(currentItem, response.data["message"]);
