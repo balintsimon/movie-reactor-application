@@ -37,7 +37,7 @@ export default function MovieCard(props) {
   };
 
   useEffect(() => {
-    axios.get(currentMovieURL).then((res) => {
+    axios.get(currentMovieURL, {withCredentials: true}).then((res) => {
       setBackdrop(res.data["backdrop_path"]);
       setPoster(res.data["poster_path"]);
     });
