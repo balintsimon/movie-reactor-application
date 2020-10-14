@@ -10,22 +10,15 @@ const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
-    const history = useHistory();
 
     const checkResponse = (response) => {
         if (response.data.correct) {
             localStorage.setItem("username", response.data.username);
             localStorage.setItem("gender", response.data.gender);
-            // window.location.href = "/";
-            redirect();
+            window.location.href = "/";
         } else {
             setMessage(response.data.msg);
         }
-    };
-
-    const redirect = () => {
-        history.push("/");
-        window.location.reload();
     };
 
     const sendRequest = (event) => {
