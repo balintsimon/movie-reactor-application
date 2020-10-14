@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import {API_AUTHENTICATION} from "../../../Constants";
 import "./Authentication.css";
