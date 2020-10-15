@@ -8,7 +8,7 @@ const Get = (url, dependencies) => {
   useEffect(() => {
     setIsloading(true);
     axios
-      .get(url)
+      .get(url, {withCredentials: true})
       .then((res) => {
         setIsloading(false);
         setData(res.data);
