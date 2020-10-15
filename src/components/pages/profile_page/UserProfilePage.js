@@ -86,8 +86,7 @@ const UserProfilePage = () => {
     seatsForDelete.visitorId = parseInt(visitorId);
     axios
         .delete(API_RESERVATION_URL, {
-          data: seatsForDelete
-        }, {withCredentials: true})
+          data: seatsForDelete, withCredentials: true})
         .then(response => {
           if (response.data["successful"] === true) {
             successfulDeleteIndicator(currentItem, response.data["message"]);
