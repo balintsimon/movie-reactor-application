@@ -7,7 +7,7 @@ const Logout = () => {
 
     const logout = () => {
         localStorage.clear();
-        axios.post(`${API_AUTHENTICATION}/logout`)
+        axios.post(`${API_AUTHENTICATION}/logout`, {}, {withCredentials: true})
             .then(() => {
                 window.location.href = "/";
             });
