@@ -22,7 +22,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(118, 24, 24, 0.7);
     border-radius: 7px;
 }
 
@@ -96,7 +96,8 @@
 }
 
 .free-seat {
-    background: linear-gradient(to top, #761818, #761818, #B54041, #F3686A, white, white, white);
+    /*background: linear-gradient(to top, #761818, #761818, #B54041, #F3686A, #e6b31e, #e6b31e, #e6b31e);*/
+    background: white;
 }
 
 .own-seat {
@@ -104,5 +105,6 @@
 }
 
 .reserved-seat {
-    background: linear-gradient(to top, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #e6b31e);
+    background: linear-gradient(to top, #fac834, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #fac834, #ffda6e);
+    /*background: linear-gradient(to top, #fac834, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #fac834, #ffe69c);*/
 }
