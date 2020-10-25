@@ -1,11 +1,12 @@
 import React from "react";
+import "./TheaterTextSizing.css";
 
 const RuntimeElement = (props) => {
 
     return (
         <div style={runtimeStyle}>
-            <div className="hazy" style={{fontSize: "1.2em"}}>Runtime</div>
-            <div style={{fontSize: "2.5em"}}>{props.runtime} min</div>
+            <div className="hazy sub-title">Runtime</div>
+            <div className="field-data">{props.runtime} min</div>
         </div>
     )
 }

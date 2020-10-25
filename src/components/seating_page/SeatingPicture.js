@@ -36,8 +36,3 @@ const shading = {
     width: "100%",
     background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #343434 50%, #343434 100%)",
 }
-
-// right: -1px;
-// top: 0;
-// height: 100%;
-// width: 50%;

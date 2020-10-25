@@ -10,7 +10,7 @@ import {
   API_URL_MOVIE,
   API_URL_PICTURE,
   API_WATCHLIST,
-  IMAGE_SIZES, GET_CONFIG, POST_CONFIG,
+  IMAGE_SIZES
 } from "../../Constants";
 
 export default function MovieCard(props) {
@@ -37,7 +37,9 @@ export default function MovieCard(props) {
   };
 
   useEffect(() => {
-    axios.get(currentMovieURL).then((res) => {
+    axios
+        .get(currentMovieURL)
+        .then((res) => {
       setBackdrop(res.data["backdrop_path"]);
       setPoster(res.data["poster_path"]);
     });
@@ -54,15 +56,13 @@ export default function MovieCard(props) {
 
   let addToWatchlist = (e) => {
     e.preventDefault();
-    if (localStorage.getItem("token") === null) {
+    if (localStorage.getItem("username") === null) {
       loginWarningMovieCard(e);
     } else if (!isTheMovieAdded() && !watchlist.includes(movieId)) {
       axios
-          .post(`${API_WATCHLIST}/${movieId}`, "", { // TODO: check endpoint, get rid of config
-            headers: POST_CONFIG,
-          })
+          .post(`${API_WATCHLIST}/${movieId}`, "", {withCredentials: true})
           .then((response) =>
-              axios.get(API_WATCHLIST, GET_CONFIG).then((response) => { // TODO: check endpoint, get rid of config
+              axios.get(API_WATCHLIST, {withCredentials: true}).then((response) => {
                 setWatchlist(response.data.watchlist);
               })
           );
@@ -72,11 +72,9 @@ export default function MovieCard(props) {
   let removeFromWatchlist = (e) => {
     e.preventDefault();
     axios
-        .delete(`${API_WATCHLIST}/${movieId}`, { // TODO: check endpoint, get rid of config
-          headers: POST_CONFIG,
-        })
+        .delete(`${API_WATCHLIST}/${movieId}`, {withCredentials: true})
         .then((response) =>
-            axios.get(API_WATCHLIST, GET_CONFIG).then((response) => { // TODO: check endpoint, get rid of config
+            axios.get(API_WATCHLIST, {withCredentials: true}).then((response) => {
               setWatchlist(response.data.watchlist);
             })
         );

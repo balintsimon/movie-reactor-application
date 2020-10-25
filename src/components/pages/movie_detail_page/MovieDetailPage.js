@@ -98,7 +98,7 @@ const MovieDetailPage = () => {
                 }
             });
         axios
-            .get(`${API_SHOW_URL}/movie`) // TODO: check endpoint
+            .get(`${API_SHOW_URL}/movie`, {withCredentials: true}) // TODO: check endpoint
             .then(res => {
                 setIsScheduledMovie(res.data.movies.map(movie => movie["movieDbId"]).includes(parseInt(movieId)));
             })
