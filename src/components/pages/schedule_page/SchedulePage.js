@@ -29,7 +29,7 @@ const SchedulePage = () => {
       useEffect(() => {
         window.scrollTo(0, 0);
 
-        axios.get(API_SCHEDULE_URL)
+        axios.get(API_SCHEDULE_URL, {withCredentials: true})
             .then((res) => {
               setMovieIds([...new Set(res.data.shows.map(item => item["movieDbId"]))]); // rewrite to get movieDb Id from other service
               //

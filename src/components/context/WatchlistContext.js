@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
-import {GET_CONFIG, API_WATCHLIST} from "../../Constants";
+import {API_WATCHLIST} from "../../Constants";
 
 export const WatchlistContext = createContext([]);
 
@@ -8,9 +8,11 @@ export const WatchlistProvider = (props) => {
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(API_WATCHLIST, GET_CONFIG) // TODO: check endpoint, delete config!
-      .then((response) => setWatchlist(response.data.watchlist));
+    if (localStorage.getItem("username")) {
+      axios
+          .get(API_WATCHLIST, {withCredentials: true})
+          .then((response) => setWatchlist(response.data.watchlist));
+    }
   }, []);
 
   return (

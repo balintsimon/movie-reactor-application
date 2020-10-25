@@ -53,6 +53,7 @@ const ReserveSeatButton = (props) => {
 
     axios.post(API_RESERVATION_URL,
         {id: parseInt(id), seats: seats},
+        {withCredentials: true}
     )
         .then((response) => {
           setModalMessage(response.data ? successfulPurchaseMessage : failedPurchaseMessage)

@@ -1,17 +1,16 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import axios from "axios";
+import "./../../../Constants";
+import {API_AUTHENTICATION} from "../../../Constants";
 
 const Logout = () => {
-    const history = useHistory();
 
     const logout = () => {
         localStorage.clear();
-        redirect();
-    };
-
-    const redirect = () => {
-        history.push("/");
-        window.location.reload();
+        axios.post(`${API_AUTHENTICATION}/logout`, {}, {withCredentials: true})
+            .then(() => {
+                window.location.href = "/";
+            });
     };
 
     return (<React.Fragment>{logout()}</React.Fragment>);

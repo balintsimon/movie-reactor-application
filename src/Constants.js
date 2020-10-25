@@ -28,14 +28,3 @@ export const IMAGE_SIZES = {
 export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export const REACTOR_YELLOW = "#e6b31e";
-
-export const GET_CONFIG = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`
-  },
-};
-
-export const POST_CONFIG = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${localStorage.getItem("token")}`
-};

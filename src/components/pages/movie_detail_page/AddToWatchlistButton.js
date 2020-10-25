@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {WatchlistContext} from "../../context/WatchlistContext";
 import axios from "axios";
-import {GET_CONFIG, POST_CONFIG, API_WATCHLIST} from "../../../Constants";
+import {API_WATCHLIST} from "../../../Constants";
 
 const AddToWatchlistButton = (props) => {
   let movie = props.movieObject;
@@ -11,7 +11,6 @@ const AddToWatchlistButton = (props) => {
 
   let isTheMovieAdded = () => {
     for (let selectedMovie of watchlist) {
-      // if (selectedMovie.id === movieId) { // TODO: remove reference to ".id"; backend turned to use Int list instead of Map
       if (selectedMovie === movieId) {
         return true;
       }
@@ -31,16 +30,14 @@ const AddToWatchlistButton = (props) => {
 
   const addToWatchList = (e) => {
     e.preventDefault();
-    if (localStorage.getItem("token") === null) {
+    if (localStorage.getItem("username") === null) {
       loginWarning();
     } else if (!isTheMovieAdded() && !watchlist.includes(movie)) {
       axios
-          .post(`${API_WATCHLIST}/${movie.id}`, "", { // TODO: check endpoint, del config
-            headers: POST_CONFIG,
-          })
+          .post(`${API_WATCHLIST}/${movie.id}`, "", {withCredentials: true})
           .then((response) =>
               axios
-                  .get(API_WATCHLIST, GET_CONFIG) // TODO: check endpoint, delete config
+                  .get(API_WATCHLIST, {withCredentials: true})
                   .then((response) => setWatchlist(response.data.watchlist))
           );
     }
@@ -49,12 +46,10 @@ const AddToWatchlistButton = (props) => {
   const removeFromWatchlist = (e) => {
     e.preventDefault();
     axios
-        .delete(`${API_WATCHLIST}/${movie.id}`, { // TODO: check endpoint
-          headers: POST_CONFIG,
-        })
+        .delete(`${API_WATCHLIST}/${movie.id}`, {withCredentials: true})
         .then((response) =>
             axios
-                .get(API_WATCHLIST, GET_CONFIG) // TODO: check endpoint
+                .get(API_WATCHLIST, {withCredentials: true})
                 .then((response) => setWatchlist(response.data.watchlist))
         );
   };

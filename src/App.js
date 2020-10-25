@@ -21,12 +21,6 @@ import UserProfilePage from "./components/pages/profile_page/UserProfilePage";
 
 function App() {
 
-    axios.interceptors.request.use(function (config) {
-        const token = localStorage.getItem("token");
-        config.headers.Authorization = `Bearer ${token}`;
-        return config;
-    });
-
     document.title = "Movie Reactor";
     return (
         <div id="outer-container">
