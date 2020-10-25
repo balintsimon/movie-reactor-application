@@ -5,8 +5,18 @@
 .cinema-seats, .seat {
     cursor: pointer;
 }
-/*.cinema-seats, .seat:hover:before {*/
-.seat:hover:before {
+
+.seat {
+    width: 55px;
+    height: 80px;
+    border-radius: 7px;
+
+    margin-bottom: 20px;
+    margin-top: -32px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.free-seat:hover:before {
     content: '';
     position: absolute;
     top: 0;
@@ -16,7 +26,6 @@
     border-radius: 7px;
 }
 
-/*.cinema-seats, .seat.active:before {*/
 .seat.active:before {
     content: '';
     position: absolute;
@@ -27,23 +36,63 @@
     border-radius: 7px;
 }
 
-/*.left, .cinema-row {*/
-.left, .cinema-row {
-    transform: skew(-15deg);
-    margin: 0 6px;
+.left {
+    margin-left: -260px;
 }
 
-.theater-seat, .seat {
-/*.left, .seat {*/
-/*.seat {*/
-    width: 45px;
-    height: 60px;
-    border-radius: 7px;
+.left .cinema-row {
+    transform: skew(-15deg);
+    margin: 0 16px;
+}
 
-    margin-bottom: 20px;
+.left .seat {
     transform: skew(20deg);
-    margin-top: -32px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.left .row-2 .theater-seat {
+    transform: skew(18deg);
+}
+
+.left .row-3 .theater-seat {
+    transform: skew(16deg);
+}
+
+.left .row-4 .theater-seat {
+    transform: skew(15deg);
+}
+
+.left .row-5 .theater-seat {
+    transform: skew(12deg);
+}
+
+
+.right {
+    margin-left: 260px;
+}
+
+.right .cinema-row {
+    transform: skew(13deg);
+    margin: 0 16px;
+}
+
+.right .row-1 {
+    transform: skew(-15deg);
+}
+
+.right .row-2 {
+    transform: skew(-17deg);
+}
+
+.right .row-3 {
+    transform: skew(-19deg);
+}
+
+.right .row-4 {
+    transform: skew(-21deg);
+}
+
+.right .row-5 {
+    transform: skew(-21deg);
 }
 
 .free-seat {
