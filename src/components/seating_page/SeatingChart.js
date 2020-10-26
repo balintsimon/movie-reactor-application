@@ -46,7 +46,7 @@ const SeatingChart = (props) => {
             let isSeatMine = ownSeatIds.includes(parseInt(seat.id));
             let seatStyleClass = isSeatOccupied ? OCCUPIED_SEAT_CLASS : FREE_SEAT_CLASS;
             let seatColor = isSeatOccupied && !isSeatMine ? REACTOR_YELLOW : "white";
-            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.5" : "1";
+            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.4" : "1";
             let currentRowNumber = parseInt(seat.rowNumber);
             let currentSeatNumber = parseInt(seat.seatNumber);
 
