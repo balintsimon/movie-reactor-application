@@ -1,12 +1,15 @@
 import React, {useEffect} from "react";
 import TheaterSeat from "./TheaterSeat";
 import {FREE_SEAT_CLASS, OCCUPIED_SEAT_CLASS, REACTOR_YELLOW} from "../../Constants";
+import "./Theater.css";
+
 const SeatingChart = (props) => {
     let occupiedSeats = props.reservedSeats;
     let room = props.room;
     let seats = room.seats;
-    let seatContainer = [[]];
-    let seatChart = [];
+
+    let leftSideSeats = [];
+    let rightSideSeats = [];
 
     function getOccupiedSeatIds() {
         let occupiedSeatIds = [];
@@ -36,14 +39,14 @@ const SeatingChart = (props) => {
         return ownSeatIds;
     }
 
-    function generateSeats(occupiedSeatIds, ownSeatIds, seatsHolder) {
+    function generateSeats(occupiedSeatIds, ownSeatIds, seatsHolder, seats) {
         let previousSeat = null;
         for (let seat of seats) {
             let isSeatOccupied = occupiedSeatIds.includes(parseInt(seat.id));
             let isSeatMine = ownSeatIds.includes(parseInt(seat.id));
             let seatStyleClass = isSeatOccupied ? OCCUPIED_SEAT_CLASS : FREE_SEAT_CLASS;
-            let seatColor = isSeatOccupied && !isSeatMine? REACTOR_YELLOW : "white";
-            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.5" : "1";
+            let seatColor = isSeatOccupied && !isSeatMine ? REACTOR_YELLOW : "white";
+            let seatOpacity = isSeatOccupied && !isSeatMine ? "0.4" : "1";
             let currentRowNumber = parseInt(seat.rowNumber);
             let currentSeatNumber = parseInt(seat.seatNumber);
 
@@ -56,6 +59,8 @@ const SeatingChart = (props) => {
                              seatOccupiedClass={seatStyleClass}
                              seatColor={seatColor}
                              seatOpacity={seatOpacity}
+                             dataRow={currentRowNumber}
+                             dataColumn={currentSeatNumber}
                 />);
             if (previousSeat != null && parseInt(previousSeat.rowNumber) < currentRowNumber + 1) {
                 seatsHolder[currentSeatNumber][currentRowNumber - 1] =
@@ -66,11 +71,24 @@ const SeatingChart = (props) => {
         return seatsHolder;
     }
 
-    function fillSeatChart(seatingArray, seatChart) {
-        for (let rowNumber = 0; rowNumber < room.numberOfSeatsPerRow; rowNumber++) {
+    function fillLeftSeatChart(seatingArray) {
+        let seatChart = [];
+        for (let rowNumber = 0; rowNumber < parseInt(room.numberOfSeatsPerRow / 2, 10); rowNumber++) {
             let seats = seatingArray[rowNumber];
             seatChart.push(
-                <div className={`cinema-row row-${rowNumber + 1}`}>
+                <div className={`cinema-row`}>
+                    {seats}
+                </div>);
+        }
+        return seatChart;
+    }
+
+    function fillRightSeatChart(seatingArray) {
+        let seatChart = [];
+        for (let rowNumber = parseInt(room.numberOfSeatsPerRow / 2, 10); rowNumber < room.numberOfSeatsPerRow; rowNumber++) {
+            let seats = seatingArray[rowNumber];
+            seatChart.push(
+                <div className={`cinema-row`}>
                     {seats}
                 </div>);
         }
@@ -80,9 +98,10 @@ const SeatingChart = (props) => {
     function fillSeatsTable() {
         let occupiedSeatIds = getOccupiedSeatIds();
         let ownSeatIds = getOwnSeatIds();
-        seatContainer = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
-        seatContainer = generateSeats(occupiedSeatIds, ownSeatIds, seatContainer);
-        seatChart = fillSeatChart(seatContainer, seatChart);
+        let seatContainer = createEmpty2DContainer(room.numberOfRows, room.numberOfSeatsPerRow);
+        seatContainer = generateSeats(occupiedSeatIds, ownSeatIds, seatContainer, seats);
+        leftSideSeats = fillLeftSeatChart(seatContainer);
+        rightSideSeats = fillRightSeatChart(seatContainer);
     }
 
     useEffect(() => {
@@ -92,9 +111,15 @@ const SeatingChart = (props) => {
     fillSeatsTable();
 
     return (
-        <div style={mainCardStyle} key="seating-chart">
-            {seatChart}
+        <div>
+            <div style={mainCardStyle} key="seating-chart-left" className="cinema-seats left">
+                {leftSideSeats}
+            </div>
+            <div style={mainCardStyle} key="seating-chart-left" className="cinema-seats right">
+                {rightSideSeats}
+            </div>
         </div>
+
     )
 }
 
@@ -103,7 +128,7 @@ export default SeatingChart;
 const mainCardStyle = {
     display: "flex",
     position: "absolute",
-    top: "58%",
+    top: "60%",
     left: "50%",
     transform: "translate(-50%)",
     zIndex: "0",

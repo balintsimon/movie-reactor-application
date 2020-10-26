@@ -1,0 +1,110 @@
+.cinema-seats {
+    display: flex;
+}
+
+.cinema-seats, .seat {
+    cursor: pointer;
+}
+
+.seat {
+    width: 55px;
+    height: 80px;
+    border-radius: 7px;
+
+    margin-bottom: 20px;
+    margin-top: -32px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.free-seat:hover:before, .own-seat:hover:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(118, 24, 24, 0.7);
+    border-radius: 7px;
+}
+
+.seat.active:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 7px;
+}
+
+.left {
+    margin-left: -260px;
+}
+
+.left .cinema-row {
+    transform: skew(-15deg);
+    margin: 0 16px;
+}
+
+.left .seat {
+    transform: skew(20deg);
+}
+
+.left .row-2 .theater-seat {
+    transform: skew(18deg);
+}
+
+.left .row-3 .theater-seat {
+    transform: skew(16deg);
+}
+
+.left .row-4 .theater-seat {
+    transform: skew(15deg);
+}
+
+.left .row-5 .theater-seat {
+    transform: skew(12deg);
+}
+
+
+.right {
+    margin-left: 260px;
+}
+
+.right .cinema-row {
+    transform: skew(13deg);
+    margin: 0 16px;
+}
+
+.right .row-1 {
+    transform: skew(-15deg);
+}
+
+.right .row-2 {
+    transform: skew(-17deg);
+}
+
+.right .row-3 {
+    transform: skew(-19deg);
+}
+
+.right .row-4 {
+    transform: skew(-21deg);
+}
+
+.right .row-5 {
+    transform: skew(-21deg);
+}
+
+.free-seat {
+    /*background: linear-gradient(to top, #761818, #761818, #B54041, #F3686A, #e6b31e, #e6b31e, #e6b31e);*/
+    background: white;
+}
+
+.own-seat {
+    background: linear-gradient(to top, #761818, #761818, #761818, #761818, #761818, #B54041, #F3686A);
+}
+
+.reserved-seat {
+    background: linear-gradient(to top, #fac834, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #fac834, #ffda6e);
+    /*background: linear-gradient(to top, #fac834, #e6b31e, #e6b31e, #e6b31e, #e6b31e, #fac834, #ffe69c);*/
+}

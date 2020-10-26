@@ -15,9 +15,12 @@ export const API_URL_PICTURE = "https://image.tmdb.org/t/p/"
 export const IMDB_URL = "https://www.imdb.com/title/";
 export const IMDB_ACTOR_URL = "https://www.imdb.com/name/";
 
-export const FREE_SEAT_CLASS =  "fa-square-o";
-export const OCCUPIED_SEAT_CLASS = "fa-square";
-export const OWN_RESERVED_SEAT_CLASS = "fa-plus-square";
+// export const FREE_SEAT_CLASS =  "fa-square-o";
+// export const OCCUPIED_SEAT_CLASS = "fa-square";
+// export const OWN_RESERVED_SEAT_CLASS = "fa-plus-square";
+export const FREE_SEAT_CLASS =  "free-seat";
+export const OCCUPIED_SEAT_CLASS = "reserved-seat";
+export const OWN_RESERVED_SEAT_CLASS = "own-seat";
 
 export const IMAGE_SIZES = {
   backdrop_sizes: ["w300", "w780", "w1280", "original"],

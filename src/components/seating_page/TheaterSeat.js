@@ -1,5 +1,6 @@
 import React from "react";
 import {FREE_SEAT_CLASS, OWN_RESERVED_SEAT_CLASS} from "../../Constants";
+import "./Theater.css";
 
 const TheaterSeat = (props) => {
     let seatPlaceMessage = `Seat No. ${props.column} in row No. ${props.row}.`;
@@ -21,25 +22,16 @@ const TheaterSeat = (props) => {
     }
 
     return (
-        <div>
-            <i className={`theater-seat fa ${props.seatOccupiedClass}`} aria-hidden="true"
+            <div className={`theater-seat seat ${props.seatOccupiedClass} row-${props.dataRow}`} aria-hidden="true"
                data-row={props.row}
                data-column={props.column}
                data-id={props.id}
                data-toggle="tooltip"
                title={message}
-               style={{...seatStyle, color: props.seatColor, opacity: props.seatOpacity}}
+               style={{opacity: props.seatOpacity}}
                onClick={addReserveSeatListener}
             />
-            <p/>
-        </div>
     )
 }
 
 export default TheaterSeat;
-
-const seatStyle = {
-    transform: "scale(5)",
-    margin: "2em",
-    textShadow: "0px 0px 3px #e6b31e"
-}

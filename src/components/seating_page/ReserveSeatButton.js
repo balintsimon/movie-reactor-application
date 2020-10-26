@@ -41,7 +41,7 @@ const ReserveSeatButton = (props) => {
     }
 
     let seats = [];
-    let reservedSeats = document.getElementsByClassName(`theater-seat fa ${OWN_RESERVED_SEAT_CLASS}`);
+    let reservedSeats = document.getElementsByClassName(`${OWN_RESERVED_SEAT_CLASS}`);
     for (let i = 0; i < reservedSeats.length; i++) {
       seats.push(parseInt(reservedSeats.item(i).dataset.id))
     }
@@ -57,7 +57,7 @@ const ReserveSeatButton = (props) => {
     )
         .then((response) => {
           setModalMessage(response.data ? successfulPurchaseMessage : failedPurchaseMessage)
-          let seatToModify = document.getElementsByClassName(`theater-seat fa ${OWN_RESERVED_SEAT_CLASS}`);
+          let seatToModify = document.getElementsByClassName(`${OWN_RESERVED_SEAT_CLASS}`);
 
           for (let i = seatToModify.length - 1; i > -1; i--) {
             let seat = reservedSeats.item(i);
