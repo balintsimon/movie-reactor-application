@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
-import "./Authentication.css";
+import "./Register.css";
 import { API_AUTHENTICATION } from "../../../Constants";
 
 const RegisterPage = () => {
@@ -24,7 +24,7 @@ const RegisterPage = () => {
     };
 
     const redirect = () => {
-        history.push("/auth/login"); // TODO: check endpoint
+        history.push("/auth/login");
     };
 
     const sendRequest = (event) => {
@@ -36,19 +36,34 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="login">
-            <form className="form" onSubmit={sendRequest}>
-                    <input className="input" type="text" placeholder="firstname" onChange={event => setFirstname(event.target.value)} required/>
-                    <input className="input" type="text" placeholder="lastname" onChange={event => setLastname(event.target.value)} required/>
+        <div className="register">
+            <form className="register-form" onSubmit={sendRequest}>
+                <div>
+                    <input className="input-container" id="firstname" type="text" onChange={event => setFirstname(event.target.value)} required/>
+                    <label for="firstname">first name</label>
+                </div>
+                <div>
+                    <input className="input-container" id="lastname" type="text" onChange={event => setLastname(event.target.value)} required/>
+                    <label for="lastname">last name</label>
+                </div>
                     <select className="dropdown" defaultValue="MAN" name="gender" id="gender">
                         <option value="MAN">MALE</option>
-                        <option value="WOMAN">FEMALE</option>
+                        <option value="WOMAN" >FEMALE</option>
                         <option value="GENERAL">PREFER NOT TO SAY</option>
                     </select>
-                    <input className="input" type="text" placeholder="email" onChange={event => setEmail(event.target.value)} required/>
-                    <input className="input" type="text" placeholder="username" onChange={event => setUsername(event.target.value)} required/>
-                    <input className="input" type="password" placeholder="password" onChange={event => setPassword(event.target.value)} required/>
-                    <input type="submit" value="Register" className="button"/>
+                <div>
+                    <input className="input-container" id="email" type="text" onChange={event => setEmail(event.target.value)} required/>
+                    <label for="email">e-mail</label>
+                </div>
+                <div>
+                    <input className="input-container" id="username" type="text" onChange={event => setUsername(event.target.value)} required/>
+                    <label for="username">user name</label>
+                </div>
+                <div>
+                    <input className="input-container" id="password" type="password" onChange={event => setPassword(event.target.value)} required/>
+                    <label for="password">password</label>
+                </div>
+                <input type="submit" value="Register" className="button"/>
                 { (message !== "") ?
                     <div className="errorMessage">{message}</div> : <div className="errorMessage"> </div>}
             </form>
