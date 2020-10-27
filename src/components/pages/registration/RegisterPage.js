@@ -5,6 +5,14 @@ import "./Register.css";
 import { API_AUTHENTICATION } from "../../../Constants";
 
 const RegisterPage = () => {
+    let passwordField = document.getElementById("password");
+
+
+
+    let usernameFieldMessage = "Must be at least 6 characters long.";
+    let passwordFieldMessage = "Must contain at least a number, " +
+        "an upper and a lower case letter " +
+        "and must be at least 8 characters long.";
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -35,6 +43,62 @@ const RegisterPage = () => {
         axios.post(`${API_AUTHENTICATION}/register`, params).then(response => checkResponse(response)) // TODO: check endpoint
     };
 
+    function displayPswdCheckMessage() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    function hidePswdCheckMessage() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    function checkPswdContent() {
+        let lowerCaseLetters = /[a-z]/g;
+        let capitalLetters = /[A-Z]/g;
+        let numbers = /[0-9]/g;
+        let lowerCaseLetterCheckField = document.getElementById("letter");
+        let capitalLetterCheckField = document.getElementById("capital");
+        let numberCheckField = document.getElementById("number");
+
+        checkPasswordContains(lowerCaseLetters, lowerCaseLetterCheckField);
+        checkPasswordContains(capitalLetters, capitalLetterCheckField);
+        checkPasswordContains(numbers, numberCheckField);
+        checkPasswordLength();
+        hidePasswordLabel();
+    }
+
+    function checkPasswordContains(regex, field) {
+        if (passwordField.value.match(regex)) {
+            field.classList.remove("invalid");
+            field.classList.add("valid");
+        } else {
+            field.classList.remove("valid");
+            field.classList.add("invalid");
+        }
+    }
+
+    function checkPasswordLength() {
+        let pswdLength = 8;
+        let length = document.getElementById("length");
+        if (passwordField.value.length >= pswdLength) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+
+    function hidePasswordLabel() {
+        let field = document.getElementById("passwordlabel");
+        if (passwordField.value.length !== 0) {
+            field.style.display = "none";
+            passwordField.style.marginBottom = "16px";
+        } else {
+            field.style.display = "";
+            passwordField.style.marginBottom = "10px";
+        }
+    }
+
     return (
         <div className="register">
             <form className="register-form" onSubmit={sendRequest}>
@@ -56,16 +120,41 @@ const RegisterPage = () => {
                     <label for="email">e-mail</label>
                 </div>
                 <div>
-                    <input className="input-container" id="username" type="text" onChange={event => setUsername(event.target.value)} required/>
+                    <input className="input-container"
+                           id="username"
+                           pattern="(?=.*[a-z]).{6,}"
+                           title={usernameFieldMessage}
+                           type="text"
+                           onChange={event => setUsername(event.target.value)}
+                           required
+                    />
                     <label for="username">user name</label>
                 </div>
                 <div>
-                    <input className="input-container" id="password" type="password" onChange={event => setPassword(event.target.value)} required/>
-                    <label for="password">password</label>
+                    <input className="input-container"
+                           id="password"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                           title={passwordFieldMessage}
+                           type="password"
+                           onChange={event => setPassword(event.target.value)}
+                           onFocus={displayPswdCheckMessage}
+                           onBlur={hidePswdCheckMessage}
+                           onKeyUp={checkPswdContent}
+                           required
+                    />
+                    <label id="passwordlabel" for="password">password</label>
                 </div>
                 <input type="submit" value="Register" className="button"/>
                 { (message !== "") ?
                     <div className="errorMessage">{message}</div> : <div className="errorMessage"> </div>}
+
+                <div id="message">
+                    <h5>Password must contain:</h5>
+                    <div id="letter" className="invalid">A lowercase letter</div>
+                    <div id="capital" className="invalid">A capital (uppercase) letter</div>
+                    <div id="number" className="invalid">A number</div>
+                    <div id="length" className="invalid">Minimum 8 characters</div>
+                </div>
             </form>
         </div>
     )

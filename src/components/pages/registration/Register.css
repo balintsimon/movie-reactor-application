@@ -47,7 +47,7 @@
 
 label {
     position: relative;
-    top: -50px;
+    top: -45px;
     padding: 0px 0px 0px 15px;
     display: inline-block;
 
@@ -69,4 +69,40 @@ input:focus ~ label, input:valid ~ label {
     transition: all .2s ease;
     opacity: 0.8;
     background: none;
+}
+
+#message {
+    display: none;
+    position: relative;
+    padding-bottom: -30px;
+
+    color: #e6b31e;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 5%;
+    font-family: "Roboto", sans-serif;
+}
+
+#message > div {
+    font-size: .9em;
+}
+
+.valid {
+    color: #fac834;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
 }
