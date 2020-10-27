@@ -122,7 +122,7 @@ const RegisterPage = () => {
                 <div>
                     <input className="input-container"
                            id="username"
-                           pattern="(?=.*[a-z]).{6,}"
+                           // pattern="(?=.*[a-z]).{6,}"
                            title={usernameFieldMessage}
                            type="text"
                            onChange={event => setUsername(event.target.value)}
