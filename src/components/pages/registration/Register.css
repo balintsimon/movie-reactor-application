@@ -71,7 +71,7 @@ input:focus ~ label, input:valid ~ label {
     background: none;
 }
 
-#message {
+#pswd_message {
     display: none;
     position: relative;
     padding-bottom: -30px;
@@ -83,7 +83,7 @@ input:focus ~ label, input:valid ~ label {
     font-family: "Roboto", sans-serif;
 }
 
-#message > div {
+#pswd_message > div {
     font-size: .9em;
 }
 
@@ -105,4 +105,20 @@ input:focus ~ label, input:valid ~ label {
     position: relative;
     left: -35px;
     content: "✖";
+}
+
+#username_message {
+    display: none;
+    position: relative;
+    padding-bottom: -30px;
+
+    color: #e6b31e;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 5%;
+    font-family: "Roboto", sans-serif;
+}
+
+#username_message > div {
+    font-size: .9em;
 }
