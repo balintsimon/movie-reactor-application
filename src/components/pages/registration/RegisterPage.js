@@ -184,15 +184,15 @@ const RegisterPage = () => {
                 { (message !== "") ?
                     <div className="errorMessage">{message}</div> : <div className="errorMessage"> </div>}
                 <div id="username_message">
-                    <h5>User name must be</h5>
-                    <div id="username_length" className="invalid">at least 6 characters long</div>
+                    <h5>User name must:</h5>
+                    <div id="username_length" className="invalid">be at least 6 characters long</div>
                 </div>
                 <div id="pswd_message">
-                    <h5>Password must contain:</h5>
-                    <div id="letter" className="invalid">A lowercase letter</div>
-                    <div id="capital" className="invalid">A capital (uppercase) letter</div>
-                    <div id="number" className="invalid">A number</div>
-                    <div id="length" className="invalid">Minimum 8 characters</div>
+                    <h5>Password must:</h5>
+                    <div id="letter" className="invalid">contain a lowercase letter</div>
+                    <div id="capital" className="invalid">contain a capital (uppercase) letter</div>
+                    <div id="number" className="invalid">contain a number</div>
+                    <div id="length" className="invalid">be at least 8 characters</div>
                 </div>
             </form>
         </div>
