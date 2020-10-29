@@ -63,8 +63,8 @@ const RegisterPage = () => {
     }
 
     function checkPswdContent() {
-        let lowerCaseLetters = /[a-z]/g;
-        let capitalLetters = /[A-Z]/g;
+        let lowerCaseLetters = /[a-zá-üűő]/g;
+        let capitalLetters = /[A-ZÁ-ÜŰÖŐ]/g;
         let numbers = /[0-9]/g;
         let pswdLength = 8;
         let lowerCaseLetterCheckField = document.getElementById("letter");
@@ -169,7 +169,7 @@ const RegisterPage = () => {
                     <input
                         className="input-container"
                        id="password"
-                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       pattern="(?=.*\d)(?=.*[a-zá-üűő])(?=.*[A-ZÁ-ÜŰÖŐ]).{8,}"
                        title={passwordFieldMessage}
                        type="password"
                        onChange={event => setPassword(event.target.value)}
